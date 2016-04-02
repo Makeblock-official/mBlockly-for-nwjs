@@ -1,0 +1,16 @@
+{
+	"name": "mBlockly",
+	"version": "1.0.0",
+	"description": "to start a gulp project quickly",
+	"main": "./src/demos/mblockly/index.html",
+	"version": "1.0",
+	"nodejs":true,
+	"node-main":"app.js",
+	"bg-script":"background.js",
+	"window": {
+		"toolbar": true,
+		"resizable": true,
+		"width": 800,
+		"height": 500
+	}
+}

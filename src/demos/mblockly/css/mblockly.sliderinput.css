@@ -1,0 +1,502 @@
+.modal-dialog-bg{
+    z-index: 2;
+}
+
+.modal-dialog{
+    z-index: 3;
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.modal-dialog-content{
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.modal-dialog-title{
+    
+}
+
+.modal-dialog-buttons{
+    padding-left: 30px;
+}
+
+.modal-dialog-buttons button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    font-size: 2em;
+    background: white;
+    -webkit-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom-width: 5px;
+}
+
+#power-slider-box{
+  background: white;
+  width: 731px;
+  height: 358px;
+  border-radius: 20px;
+  font-family: "robotobold" sans-serif !important;
+}
+
+#power-slider{
+    width: 510px;
+    height: 36px;
+    /* margin: 20px; */
+    border-radius: 10px;
+    position: absolute;
+    left: 58px;
+    top: 99px;
+}
+
+#power-slider-display{
+    font-size: 48px;
+    color: #b6e710;
+    text-align: center;
+    position: absolute;
+    top: 82px;
+    right: 51px;
+    font-family: "robotobold" sans-serif !important;
+}
+
+.modal-dialog-title-close {
+   background: #e0edfe url(../images/cross.png) no-repeat;
+}
+
+.slider-line-set-1{
+  position: absolute;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  width: 20px;
+  height: 12px;
+  top: 13px;
+  left: 6px;
+}
+
+.slider-line-set-2{
+  position: absolute;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  width: 20px;
+  height: 12px;
+  top: 33px;
+  left: 6px;
+}
+
+
+.goog-slider-vertical,
+.goog-slider-horizontal {
+  background-color: #ddd;
+  position: relative;
+  /* overflow: hidden; */
+}
+.goog-slider-thumb {
+  position: absolute;
+  background-color: #b6e710;
+  overflow: hidden;
+  border: 2px solid white;
+  border-radius: 10px;
+  border-bottom: 4px solid #a5ca24;
+}
+
+.goog-slider-thumb:active{
+  border-bottom-width: 1px;
+}
+
+.slider-thumb-shadow{
+  height: 36px;
+  background-color: #b6e710;
+}
+
+.goog-slider-vertical .goog-slider-thumb {
+  left: 0;
+  height: 50px;
+  width: 100%;
+}
+
+.goog-slider-horizontal .goog-slider-thumb {
+  top: -14px;
+  width: 36px;
+  height: 64px;
+}
+.goog-slider-disabled {
+  background-color: lightgray;
+}
+
+.slider-label{
+  font-size: 18px;
+  font-family: "robotobold" sans-serif !important;
+  color: #cccccc;
+  position: absolute;
+}
+
+#slider-fast-text{
+  top: 24px;
+  left: 422px;
+}
+
+#slider-slow-text{
+  top: 24px;
+  left: 234px;
+}
+
+#slider-very-slow-text{
+  bottom: 147px;
+  left: 129px;
+}
+
+#slider-medium-text{
+  bottom: 147px;
+  left: 314px;
+}
+
+#slider-very-fast-text{
+  bottom: 147px;
+  left: 502px;
+}
+
+.slider-vertical-line{
+  height: 32px;
+  border-right: 1px solid #cccccc;
+  position: absolute;
+}
+
+#slider-slow-line{
+  top: 55px;
+  left: 253px;
+}
+
+#slider-fast-line{
+  top: 55px;
+  left: 439px;
+}
+
+#slider-very-slow-line{
+  bottom: 179px;
+  left: 168px;
+}
+
+#slider-medium-line{
+  bottom: 179px;
+  left: 346px;
+}
+
+#slider-very-fast-line{
+  bottom: 179px;
+  left: 538px;
+}
+
+#slider-ok-button, #piano-button-ok{
+  width: 131px;
+  height: 61px;
+  background: #b6e710;
+  position: absolute;
+  bottom: 28px;
+  left: 300px;
+  border: none;
+  border-radius: 10px;
+  border-bottom: 3px solid #8bb00e;
+  background:#b6e710 url(../images/checkmark-large.png) 31px no-repeat;
+}
+
+#piano-button-ok{
+  
+}
+
+#slider-ok-button:active, #piano-button-ok:active{
+  border-bottom-width: 1px;
+}
+
+/* numpad section */
+#numpad{
+  width: 306px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px 20px 12px;
+}
+
+#numpad button{
+  font-family: "robotobold" sans-serif !important;
+}
+
+
+.numpad-buttons{
+  margin: 0 0 0 -7px;
+}
+
+.numpad-button, #numpad-backspace{
+  width: 84px;
+  height: 87px;
+  display: inline-block;
+  border: none;
+  margin-left: 7px;
+  margin-bottom: 5px;
+  background-color: #4abefb;
+  border-bottom: 4px solid #2c99d2 ;
+  color: white;
+  font-size: 3em;
+  line-height: 70px;
+  padding: 0;
+  border-radius: 10px;
+}
+.numpad-button:active, #numpad-backspace:active{
+  height: 85px;
+  border-bottom: 2px solid #2c99d2 ;
+  margin-bottom: 0px;
+  padding-bottom: 0;
+}
+
+.numpad-button:active {
+  top: 4px;
+  position: relative; 
+}
+
+.numpad-display-section{
+  margin-bottom: 0px;
+  /* padding-right: 10px; */
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  height: 89px;
+  margin-bottom: 6px;
+}
+
+#numpad-button-ok{
+  text-indent: -9999px;
+  background-color: #c1f024;
+  margin-left: 6px;
+  border-bottom: 4px solid #88ac0e;
+  /* position: absolute; */
+  /* margin: 0; */
+  /* padding: 0; */
+  background: #c1f024 url(../images/checkmark.png) 20px 28px no-repeat;
+}
+
+.numpad-display-container{
+  width: 183px;
+  height: 90px;
+  display: inline-block;
+  font-size: 3em;
+  line-height: 95px;
+  text-indent: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+#numpad-display{
+  width: 189px;
+  /* position: absolute; */
+  margin-right: 17px;
+  /* height: 10px; */
+  text-align: right;
+  float: right;
+  font-family: "robotobold", sans-serif !important;
+  line-height: 88px;
+  color: #4d4d4d;
+}
+
+#numpad-backspace{
+  /*
+  padding: 0;
+  text-indent: -9999px;
+  position: absolute;
+  margin: 0;*/
+  position: absolute;
+  right: 20px;
+  top: 21px;
+}
+
+#numpad-backspace:active {
+  top: 25px;
+}
+
+/* color slider section */
+.blocklyWidgetDiv div.goog-palette-colorswatch {
+    height: 50px;
+    width: 50px;
+}
+
+
+
+/* piano keys */
+#piano{
+  background-color: white;
+  border-radius: 20px;
+  padding: 11px;
+}
+
+#piano-keys{
+  width: 700px;
+  overflow-x: auto;
+  /* border: 3px solid #000; */
+  /* background: #000; */
+  margin-left: -4px;
+}
+
+.piano-key-wrapper{
+  /*width: 2240px;*/
+}
+
+.piano-key{
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 180px;
+  margin: 0 2px 0px 0;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+}
+
+#piano-keys .piano-key.pressed,
+#piano-keys .piano-key:active {
+  border-bottom-width: 1px;
+}
+
+.piano-key label{
+  font-size: 1.8em;
+  position: absolute;  
+  left: 20px; 
+  color: #18acfa;
+}
+
+#piano-display{
+  font-size: 36px;
+  /* background-color: #eee; */
+  width: 150px;
+  margin-top: 8px;
+  margin-left: 18px;
+  padding: 5px;
+  color: #818181;
+}
+
+#piano-action-buttons{
+  position: absolute;
+  right: 3px;
+  bottom: 9px;
+}
+
+#piano-action-buttons button{
+  /* width: 100px; */
+  /* height: 58px; */
+  margin-left: 5px;
+  /* border: none; */
+  font-size: 1.5em;
+}
+
+#piano-button-ok{
+  background-color: #c1f024;
+  bottom: 2px;
+  right: 9px;
+  left: auto;
+}
+
+.piano-key{
+  border-radius: 8px;
+  width: 83px;
+  margin-left: 4px;
+  margin-right: 0;
+  text-align: center;
+  position: relative;
+}
+
+.piano-key label{
+  color: white;
+  font-family: "robotoregular" sans-serif !important;
+  font-size: 36px;
+  text-align: center;
+  position: absolute;
+
+}
+
+.piano-key.note-name-C5{
+  background-color: #ff6686;
+  border-bottom: 3px solid #dc2047;
+  height: 262px;
+}
+
+.note-name-C5 label{
+  top: 100px
+}
+
+.piano-key.note-name-D5{
+  background-color: #ff9466;
+  border-bottom: 3px solid #e7571a;
+  height: 247px;
+  bottom: 8px;
+}
+
+.note-name-D5 label{
+  top: 92px
+}
+
+.piano-key.note-name-E5{
+  background-color: #ebd93e;
+  border-bottom: 3px solid #d6c105;
+  height: 232px;
+  bottom: 16px;
+}
+
+.note-name-E5 label{
+  top: 84px
+}
+
+.piano-key.note-name-F5{
+  background-color: #afe008;
+  border-bottom: 3px solid #92bc04;
+  height: 217px;
+  bottom: 24px;
+}
+
+.note-name-F5 label{
+  top: 76px
+}
+
+.piano-key.note-name-G5{
+  background-color: #18dfa4;
+  border-bottom: 3px solid #09c089;
+  height: 202px;
+  bottom: 32px;
+}
+
+.note-name-G5 label{
+  top: 68px
+}
+
+.piano-key.note-name-A5{
+  background-color: #669fff;
+  border-bottom: 3px solid #3077ef;
+  height: 187px;
+  bottom: 40px;
+}
+
+.note-name-A5 label{
+  top: 60px
+}
+
+.piano-key.note-name-B5{
+  background-color: #aa66ff;
+  border-bottom: 3px solid #9347f1;
+  height: 172px;
+  bottom: 48px;
+}
+
+.note-name-B5 label{
+  top: 52px
+}
+
+.piano-key.note-name-C6{
+  background-color: #ff8cf3;
+  border-bottom: 3px solid #eb43d9;
+  height: 157px;
+  bottom: 56px;
+}
+
+.note-name-C6 label{
+  top: 44px
+}

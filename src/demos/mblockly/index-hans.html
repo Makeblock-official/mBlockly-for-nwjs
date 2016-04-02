@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Mblockly</title>
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/goog.dialog.css">
+  <link rel="stylesheet" href="css/mblockly.sliderinput.css">
+
+<script src="js/vendors/acorn_interpreter.js"></script>
+<script src="../../blockly_uncompressed.js"></script>
+<script src="../../msg/js/zh-hans.js"></script>
+
+<!-- <script src="../../javascript_compressed.js"></script> -->
+<script src="../../generators/javascript.js"></script>
+<script src="../../generators/javascript/colour.js"></script>
+<script src="../../generators/javascript/lists.js"></script>
+<script src="../../generators/javascript/logic.js"></script>
+<script src="../../generators/javascript/loops.js"></script>
+<script src="../../generators/javascript/math.js"></script>
+<script src="../../generators/javascript/procedures.js"></script>
+<script src="../../generators/javascript/text.js"></script>
+<script src="../../generators/javascript/variables.js"></script>
+
+<!-- <script src="../../blocks_uncompressed.js"></script> -->
+<script src="../../blocks/logic.js"></script>
+<script src="../../blocks/loops.js"></script>
+<script src="../../blocks/text.js"></script>
+<script src="../../blocks/lists.js"></script>
+<script src="../../blocks/colour.js"></script>
+<script src="../../blocks/variables.js"></script>
+<script src="../../blocks/procedures.js"></script>
+<script src="../../blocks/math.js"></script>
+
+<script src="js/mblockly.sliderinput.js"></script>
+<script src="js/mblockly.numpadinput.js"></script>
+<script src="js/mblockly.pianoinput.js"></script>
+<script src="js/mblockly.block_svg.js"></script>
+<script src="js/mblockly.block.js"></script>
+
+<!-- customized blocks -->
+<script src="js/block_keeper.js"></script>
+<script src="js/runtime.js"></script>
+<script src="js/blocks_start.js"></script>
+<script src="js/blocks_move.js"></script>
+<script src="js/blocks_display.js"></script>
+<script src="js/blocks_event.js"></script>
+<script src="js/blocks_detect.js"></script>
+<script src="js/blocks_event.js"></script>
+
+<script src="js/vendors/zepto.min.js"></script>
+<script src="js/resources.js"></script>
+<script src="js/data.js"></script>
+<script src="js/control.js"></script>
+<script src="js/action.js"></script>
+</head>
+<body>
+    <div class="scene start active">
+        <div class="menu">
+            <button class="btn create-project-btn">
+                新建项目
+            </button>
+            <button class="btn my-project-btn">
+                我的项目
+            </button>
+        </div>
+    </div>
+    
+    <div class="scene stage">
+        <!-- menu left -->
+        <div id="blockDeletionMask"><div class="trash-icon"></div></div>
+        <div id="menuLeft">
+            <!-- logo -->
+            <a id="logo" class="logo" href="javascript:void(0)"></a>
+        
+            <!-- boxscroll -->
+            <div id="toolboxScrollingDiv">
+                <div id="toolboxDiv">
+                    
+                </div>
+            </div>
+            
+            <!-- play -->
+            <button type="button" class="loaderPanelButton run" id="showLoaderButton">
+              <b class="star"></b>
+              <span id="runButtonLabel">Go</span>
+            </button>
+        </div>
+
+        <!-- main -->
+        <div id="panel">
+
+            <div id="log">
+              <button class="hide-log-btn">hide me</button>
+              <button class="show-log-btn">show me</button>
+            </div>
+            <div id="blocklyDiv">
+
+            </div>
+        </div>
+        
+        <!-- side buttons -->
+        <div id="sideButtons">
+            <div class="logo btn">
+                
+            </div>
+            
+            <div class="run btn">
+                
+            </div>
+
+            <div id="demoBtn" class="btn" data-panel="panel0">
+                案例
+            </div>
+
+            <div class="restore btn" id="myProjectBtn" data-panel="panel1">
+                我的项目
+            </div>
+
+            <div id="newProjectBtn" class="btn">
+                新建项目
+            </div>
+
+            <!-- <div class="tool-btn" id="stopBtn">
+                <i class="fa fa-stop"></i>
+            </div> -->
+
+            <div id="saveBtn" class="tool-btn">
+                <!-- <i class="fa fa-floppy-o"></i> -->
+            </div>
+
+            <!-- <div class="btn" id="query">
+                query
+            </div>
+
+            <div class="btn" id="update">
+                update
+            </div>
+
+            <div class="btn" id="delete">
+                Delete
+            </div> -->
+  
+            <!-- <div class="btn" id="buzzerBtn">
+                <i></i>
+                Test Buzzer
+            </div>
+
+            <div class="btn" id="ledBtn">
+                <i></i>
+                Test LED
+            </div>
+
+            <div class="btn" id="stopBtn">
+                <i></i>
+                Stop
+            </div>
+
+            <a href="" class="btn">Refresh</a>
+            <a class="btn" onclick="clearLog();">clear log</a>
+
+
+            <a class="btn" onclick="MBlockly.Action.doUltrasoinic();">ultrasoinic</a>            
+            <a class="btn" onclick="MBlockly.Action.doLineFollow();">line follow</a> -->
+        </div>
+
+        <!-- menu right -->
+        <div id="menuRight">
+            <div id="panel0" class="demoPanel right-panel">
+                <i class="fa fa-times close-btn"></i>
+                <div class="part part-beginner">
+                  <div class="header">
+                    <h3>初级</h3>
+                  </div>
+                  <div class="part-body">
+                    <ul class="demo-list">
+                        <li class="demo-item">
+                            <div class="img-wrap">
+                                <img src="images/coverPage-01.png" alt="">
+                            </div>
+                            <div class="description">
+                                <h3>七彩祥云</h3>
+                                <p>按照“赤、橙、黄、绿、青、蓝、紫”的顺序点亮LED 灯，每种颜色显示一秒，让你看到分解的彩虹。</p>
+                                <button class="load-demo" data-id="1">加载示例</button>
+                            </div>
+                        </li>
+
+                        <li class="demo-item">
+                            <div class="img-wrap">
+                                <img src="images/coverPage-02.png" alt="">
+                            </div>
+                            <div class="description">
+                                <h3>电闪雷鸣</h3>
+                                <p>蜂鸣器按照1、2、3、4、5、6、7的顺序发声，同时LED灯按照“赤、橙、黄、绿、青、蓝、紫”的顺序点亮，每种声音与颜色展示0.5秒。</p>
+                               <button class="load-demo" data-id="2">加载示例</button>
+                            </div>
+                        </li>
+
+                        <li class="demo-item">
+                            <div class="img-wrap">
+                                <img src="images/coverPage-03.png" alt="">
+                            </div>
+                            <div class="description">
+                                <h3>步步为营</h3>
+                                <p>mBot按照顺序完成行走，mBot前进时两个LED灯亮绿色，停止时两个LED灯亮红色，后退时两个LED灯亮黄色；mBot左转时，左灯亮黄色并鸣笛一声；mBot右转时，右灯亮黄色并鸣笛。</p>
+                                <button class="load-demo" data-id="3">加载示例</button>
+                            </div>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div id="panel1" class="restorePanel right-panel">
+                <i class="fa fa-times close-btn"></i>
+                <div class="part">
+                  <div class="header">
+                      <h3>我的项目</h3>
+                  </div>
+                  <div class="part-body">
+                    <ul class="restore-list">
+                        <li class="item">
+                            
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="dialog">
+        <div class="head">
+            <i class="fa fa-info-circle"></i>
+            <span class="title">输入项目名称</span>
+            <i class="fa fa-times dialog-close-btn"></i>
+        </div>
+        <div class="body">
+            <input type="text" name="projectName" autofocus>
+        </div>
+        <div class="footer">
+            <button class="cancel">取消</button>
+            <button class="ok">确定</button>
+            <button class="save-as-new">另存为</button>
+        </div>
+    </div>
+
+
+  <xml id="toolbox" style="display: none">
+    <category name="起始" class="category_start">
+      <block type="start_whengo"></block>
+      <block type="start_whenif"></block>
+      <block type="when_shake"></block>
+      <block type="when_receieve_light"></block>
+      <block type="when_obstacle_ahead"></block>
+      <block type="when_button_on_top_pressed"></block>
+    </category>
+
+    <category name="移动" class="category_move">
+        <block type="move_run">
+            <value name="SPEED">
+                <block type="math_number_range" max="255" min="7">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+
+        <block type="move_turn">
+            <value name="SPEED">
+                <block type="math_number_range" max="255" min="7">
+                    <field name="NUM">100</field>
+                 </block>
+            </value>
+        </block>
+
+        <block type="move_rotate">
+            <value name="SPEED">
+                <block type="math_number_range" max="255" min="7">
+                    <field name="NUM">100</field>
+                 </block>
+            </value>
+            <value name="TIME">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                 </block>
+            </value>
+        </block>
+
+        <block type="move_stop"></block>
+
+    </category>
+
+    <category name="展示" class="category_display">
+        <block type="set_led_color">
+          <value name="COLOUR1">
+            <block type="colour_picker">
+              <field name="COLOUR">#ff0000</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="play_tone"></block>
+        <block type="stop_tone"></block>
+        <!-- <block type="play_song"></block> -->
+
+        <!-- <block type="text"></block> -->
+        <!-- <block type="text_join"></block> -->
+        <!-- <block type="text_append">
+          <value name="TEXT">
+            <block type="text"></block>
+          </value>
+        </block> -->
+        <!-- <block type="text_length"></block> -->
+        <!-- <block type="text_isEmpty"></block> -->
+        <!-- <block type="text_indexOf">
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR">text</field>
+            </block>
+          </value>
+        </block> -->
+        <!-- <block type="text_charAt">
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR">text</field>
+            </block>
+          </value>
+        </block> -->
+        <!-- <block type="text_getSubstring">
+          <value name="STRING">
+            <block type="variables_get">
+              <field name="VAR">text</field>
+            </block>
+          </value>
+        </block> -->
+        <!-- <block type="text_changeCase"></block> -->
+        <!-- <block type="text_trim"></block> -->
+        <!-- <block type="text_print"></block> -->
+        <!-- <block type="text_prompt_ext">
+          <value name="TEXT">
+            <block type="text"></block>
+          </value>
+        </block> -->
+
+        <!-- <block type="colour_picker"></block> -->
+        <!-- <block type="colour_random"></block> -->
+        <!-- <block type="colour_rgb">
+          <value name="RED">
+            <block type="math_number">
+              <field name="NUM">100</field>
+            </block>
+          </value>
+          <value name="GREEN">
+            <block type="math_number">
+              <field name="NUM">50</field>
+            </block>
+          </value>
+          <value name="BLUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block> -->
+        <!-- <block type="colour_blend">
+          <value name="COLOUR1">
+            <block type="colour_picker">
+              <field name="COLOUR">#ff0000</field>
+            </block>
+          </value>
+          <value name="COLOUR2">
+            <block type="colour_picker">
+              <field name="COLOUR">#3333ff</field>
+            </block>
+          </value>
+          <value name="RATIO">
+            <block type="math_number">
+              <field name="NUM">0.5</field>
+            </block>
+          </value>
+        </block> -->
+
+    </category>
+
+    <category name="事件" class="category_event">
+        <block type="tablet_shaked"></block>
+        <block type="tablet_tilt_left"></block>
+        <block type="tablet_tilt_right"></block>
+        <block type="tablet_tilt_backward"></block>
+        <block type="tablet_tilt_forward"></block>
+        <block type="linefollower_reads"></block>
+    </category>
+
+    <category name="探测" class="category_detect">
+      <block type="detect_ultrasonic_threshold"></block>
+      <block type="detect_lightness_threshold"></block>
+    </category>
+
+    <category name="数学" class="category_math">
+      <block type="math_arithmetic"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="math_number"></block>
+      <block type="math_change"></block>
+      <block type="variables_set"></block>
+      <block type="variables_get"></block>
+      
+      <!-- <block type="math_single"></block> -->
+      <!-- <block type="math_trig"></block> -->
+      <!-- <block type="math_constant"></block> -->
+      <!-- <block type="math_number_property"></block> -->
+      <!-- <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo"></block>
+      <block type="math_constrain"></block>
+      <block type="math_random_int"></block>
+      <block type="math_random_float"></block> -->
+    </category>
+    <category name="控制" class="category_control">
+        <block type="controls_if"></block>
+        <block type="controls_if">
+          <mutation else="1"></mutation>
+        </block>
+        <block type="wait">
+          <value name="DELAY">
+              <block type="math_number">
+                  <field name="NUM">1</field>
+              </block>
+          </value>
+        </block>
+        <block type="wait_until"></block>
+        <block type="controls_repeat_forever"></block>
+        <block type="controls_repeat_ext">
+          <value name="TIMES">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+
+        <!-- <block type="logic_ternary"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="controls_for">
+          <value name="FROM">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="TO">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <value name="BY">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="controls_forEach"></block>
+        <block type="controls_flow_statements"></block> -->
+    </category>
+  </xml>
+<script src="js/init.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

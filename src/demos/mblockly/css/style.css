@@ -1,0 +1,1153 @@
+/* global settings */
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+button, .btn{
+    cursor: pointer;
+}
+.clearfix {
+    clear: both;
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('../fonts/roboto-bold-webfont.eot');
+    src: url('../fonts/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto-bold-webfont.ttf') format('truetype'),
+         url('../fonts/roboto-bold-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto-regular-webfont.eot');
+    src: url('../fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto-regular-webfont.ttf') format('truetype'),
+         url('../fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'robotoregular', sans-serif!important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+input {
+    -webkit-user-select: auto;
+    -moz-user-select: auto; 
+}
+
+/* for ipad */
+@media (max-device-width: 1024px) and (orientation: landscape) { 
+
+  input[type="text"], input[type="email"], input[type="search"], input[type="password"] {
+          -webkit-appearance: caret;
+          -moz-appearance: caret; /* mobile firefox too! */
+  }
+}
+    
+
+.fa {
+    font-family: 'FontAwesome'!important;
+}
+
+
+/* common */
+html {
+    background-color: transparent!important;
+}
+body {
+  background-color: transparent!important;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+
+#blocklyDiv {
+  width: 100%;
+  height: 100%;
+  background-color: #F5F2F2;
+}
+.blocklyToolboxDiv {
+    width: 226px;
+    background-color: #fff!important;
+}
+
+
+/*----------------------
+  start page
+-----------------------*/
+.scene {
+  display: none;
+  height: 100%;
+}
+
+.scene.active {
+  display: block;
+}
+.start {
+  background-color: transparent;
+}
+.start .menu {
+  position: absolute;
+  right: 100px;
+  top: 280px;
+}
+.start .menu .btn {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  border: 0;
+  outline: none;
+  border-radius: 26px;
+  font-size: 25px;
+  color: #fff;
+  font-family: 'robotobold', sans-serif!important;
+}
+.start .menu button:active {
+    position: relative;
+    top: 6px;
+    border-bottom-width: 2px;
+}
+
+.start .menu .create-project-btn {
+    width: 269.5px;
+    height: 78.5px;
+    background: #FFC600;
+    border-bottom: 6px solid #FFA31D;
+}
+
+.start .menu .my-project-btn {
+    width: 213px;
+    height: 78px;
+    background: #66CDFF;
+    border-bottom: 6px solid #45B5EB;
+}
+
+/*----------------------
+  menuLeft
+-----------------------*/
+#menuLeft {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  height: auto;
+  width: 170px;
+  z-index: 1;
+  background-color: #fff;
+}
+
+#blockDeletionMask{
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 170px; /* the same with menuLeft */
+  z-index: 3;
+  background-color: rgba(150, 150, 150, 0.5);
+}
+
+#blockDeletionMask.mouse-over{
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#blockDeletionMask .trash-icon{
+  background: url(../images/white-trashcan.png) no-repeat;
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin-left: -32.5px;
+}
+
+/* logo */
+#logo {
+  width: 100%;
+  height: 100px;
+  display: block;
+  background: url(../images/mblockly_logo.svg) no-repeat center #fff;
+  /* 解决长按弹出菜单的问题 */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /*background: url(../assets/images/svg/sprite.svg#mblockly_logo) no-repeat center #fff;*/
+}
+
+
+/* toolbox */
+#toolboxScrollingDiv {
+  position: absolute;
+  top: 100px;
+  bottom: 100px;
+  width: 100%;
+  height: auto;
+}
+
+
+/* left side scroll bar */
+#toolboxDiv .blocklyToolboxDiv {
+  border-right: none !important;
+  background-color: #fff!important;
+  overflow: visible!important;
+  width: 100%;
+}
+
+#toolboxDiv .blocklyTreeRow {
+    height: 66px;
+    line-height: 66px;
+    background-color: #fff;
+    margin-top: 0;
+
+    -webkit-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.blocklyTreeRoot div[role="treeitem"] {
+    border-bottom: 2px solid #e1f2f9;
+}
+
+#toolboxDiv div[role="treeitem"] .blocklyTreeRow {
+    border-style: solid;
+    border-width: 0 0 0 9px;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+
+/* border-color */
+#toolboxDiv div[role="treeitem"]:nth-child(1) .blocklyTreeRow {
+    border-color: #66cefe;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(2) .blocklyTreeRow {
+    border-color: #66a0ff;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(3) .blocklyTreeRow {
+    border-color: #7f67fe;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(4) .blocklyTreeRow {
+    border-color: #ffcd65;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(5) .blocklyTreeRow {
+    border-color: #fe9666;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(6) .blocklyTreeRow {
+    border-color: #e88dff;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(7) .blocklyTreeRow {
+    border-color: #ff68b4;
+}
+
+/* selected-background-color */
+#toolboxDiv div[role="treeitem"]:nth-child(1) .blocklyTreeSelected {
+    background-color: #66cefe!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(2) .blocklyTreeSelected {
+    background-color: #66a0ff!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(3) .blocklyTreeSelected {
+    background-color: #7f67fe!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(4) .blocklyTreeSelected {
+    background-color: #ffcd65!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(5) .blocklyTreeSelected {
+    background-color: #fe9666!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(6) .blocklyTreeSelected {
+    background-color: #e88dff!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(7) .blocklyTreeSelected {
+    background-color: #ff68b4!important;
+}
+
+#toolboxDiv div[role="treeitem"] .blocklyTreeSelected,
+#toolboxDiv .blocklyTreeRow:focus,
+#toolboxDiv .blocklyTreeRow:hover {
+    /*width: 236px;*/
+    /*background-color: #fff;*/
+    /*border-bottom-width: 5px;*/
+}
+
+
+
+/* icon */
+#toolboxDiv div[role="treeitem"] .blocklyTreeRow .blocklyTreeIcon {
+    width: 60px;
+    height: 60px;
+    background-size: 100%;
+    background-position: left center;
+    margin-left: 5px;
+    margin-right: 0px;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(1) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-start.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(2) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-move.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(3) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-display.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(4) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-event.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(5) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-detect.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(6) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-math.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(7) .blocklyTreeRow .blocklyTreeIcon {
+    background-image: url(../images/icon-control.svg)!important;
+}
+
+/* selected */
+#toolboxDiv div[role="treeitem"]:nth-child(1) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-start-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(2) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-move-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(3) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-display-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(4) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-event-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(5) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-detect-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(6) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-math-hover.svg)!important;
+}
+#toolboxDiv div[role="treeitem"]:nth-child(7) .blocklyTreeSelected .blocklyTreeIcon {
+    background-image: url(../images/icon-control-hover.svg)!important;
+}
+
+
+/* playbutton */
+#showLoaderButton {
+  display: block;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -80px;
+  width: 160px;
+  height: 96px;
+  line-height:  90px;
+  opacity: 1;
+  background: #4abefb;
+  color: #fff;
+  border: 0;
+  outline: none;
+  border-bottom: 7px solid #18acfa;
+  font-size: 42px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 40px;
+}
+
+button#showLoaderButton:active {
+    bottom: 24px;
+    border-bottom-width: 1px;
+}
+
+#showLoaderButton .star {
+    width:184px;
+    height:75px;
+    position:absolute;
+    left: 50%;
+    margin-left: -92px;
+    top:0px;
+    color: red;
+    opacity: 1;
+    font-size: 14px;
+    background-size: 100%;
+}
+
+
+.star-active {
+    background:url(../images/star.svg) no-repeat center;
+    opacity:0;
+    -webkit-transform: translate(0, -80px);
+    -ms-transform: translate(0, -80px);
+    -o-transform: translate(0, -80px);
+    transform: translate(0, -80px);
+
+    -webkit-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+}
+
+
+.blocklyFlyoutBackground {
+    fill: #eceaea!important;
+}
+
+
+/*----------------------
+  main panel
+-----------------------*/
+#panel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: auto;
+  height: auto;
+  z-index: 0;
+}
+
+.blocklyMainBackground {
+    fill: #f4f2f2!important;
+}
+
+
+/*----------------------
+  right menu
+-----------------------*/
+#menuRight {
+  transition: right 500ms ease;
+  -webkit-transition: right 500ms ease;
+  -moz-transition: right 500ms ease;
+
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  right: -100%;
+  z-index: 4;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  background: #ccc;
+  opacity: .98;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 40px;
+}
+
+
+#sideButtons {
+    top: 30px;
+    width: 20px;
+    position: absolute;
+    right: 50px;
+    height: 100%;
+}
+
+#sideButtons .btn {
+    display: block;
+    width: 140px;
+    height: 47px;
+    border: 1px solid transparent;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 42px;
+    -webkit-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-bottom-width: 5px;
+    text-decoration: none;
+    color: #333;
+    margin-left: -96px;
+}
+#sideButtons div.btn:active {
+    position: relative;
+    top: 6px;
+    border-bottom-width: 1px;
+}
+
+#sideButtons .logo, #sideButtons .run {
+  display: none;
+}
+
+
+#sideButtons .btn i {
+    display: inline-block;
+    background-size: 100%;
+    vertical-align: middle;
+}
+#demoBtn {
+    background-color: #b6e710;
+    border-bottom-color: #85af24!important;
+    color: #fff!important;
+}
+#demoBtn i {
+    background: url(../images/example.svg) no-repeat center;
+    width: 45px;
+    height: 44px;
+}
+#myProjectBtn {
+    background-color: #5eeaff;
+    border-bottom-color: #17b7ce!important;
+    color: #fff!important;
+}
+#myProjectBtn i {
+    background: url(../images/save.svg) no-repeat center -5px;
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+}
+
+#newProjectBtn {
+    background: #FFC600;
+    border-bottom-color: #FFA31D!important;
+    color: #fff!important;
+}
+.tool-btn {
+  position: absolute;
+  right: -12px;
+  width: 45px;
+  height: 45px;
+  background-size: 100%!important;
+}
+.tool-btn i {
+  font-size: 50px;
+  color: #D6D5D5;
+}
+
+#stopBtn {
+  bottom: 290px;
+}
+#stopBtn:active {
+  color: #333;
+}
+#saveBtn {
+  bottom: 160px;
+  background: url(../images/mBlockly-button-save.png) no-repeat center;
+}
+#saveBtn:active {
+  background: url(../images/mBlockly-button-save-clicked.png) no-repeat center;
+}
+
+.right-panel {
+    display: none;
+    position: relative;
+    width: 96%;
+    background: #fff;
+    height: 90%;
+    margin: 3% auto;
+    overflow: hidden;
+
+    -webkit-border-radius: 30px;    
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+    border: 2px solid #333;
+}
+
+/* demo-list */
+.part {
+    overflow: hidden;
+}
+.right-panel .close-btn {
+  color: #fff;
+}
+.part .header {
+    height: 100px;
+    background: #B0E257;
+    color: #fff;
+    line-height: 100px;
+    padding: 0 30px;
+    padding-top: 0;
+    font-size: 30px;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+}
+.part .header h3 {
+    margin: 0;
+}
+.demo-list {
+    padding: 0 40px;
+}
+.demo-item {
+    display: -webkit-flex;
+    display: flex;  
+    margin-top: 20px;
+    width: 100%;
+    padding-bottom: 25px;
+
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.demo-item .img-wrap {
+    width: 140px;
+    height: 140px;
+    background: #e5e5e5;
+    -webkit-border-radius: 140px;
+    -moz-border-radius: 140px;
+    border-radius: 140px;
+    overflow: hidden;
+    margin-right: 45px;
+}
+.demo-item .img-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.demo-item .description {
+    flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+}
+.demo-item .description h3 {
+  font-size: 24px;
+  line-height: 0px;
+}
+
+.demo-item .description p {
+    word-wrap: break-word; 
+    word-break: normal;
+    font-size: 17px;
+}
+.demo-item .load-demo {
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: #aee238;
+    color: #fff;
+
+    border-bottom: 3px solid #78980f;
+    outline: none;
+    float: right;
+}
+
+.demo-item button.load-demo:active {
+    position: relative;
+    top: 6px;
+    border-bottom-width: 1px;
+}
+
+
+/* dropdown menu */
+.blocklyWidgetDiv .goog-menu {
+    background: rgba(255, 255, 255, 0.9)!important;
+    border-color: #888!important;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 5px;
+    top: 5px;
+    font-size: 13px!important;
+}
+
+
+
+/* restore panel */
+.restorePanel .header {
+  background: #66cdff;
+}
+.restorePanel {
+    overflow: hidden;
+}
+.restorePanel .ops {
+    float: left;
+    width: 100%;
+}
+.restorePanel .ops i {
+    font-size: 30px;
+}
+
+.part-body {
+    overflow: auto;
+    height: 590px;
+}
+.restore-list {
+    overflow: hidden;
+    padding-top: 25px;
+}
+.restore-list .item {
+    width: 33.333333%;
+    /*max-width: 300px;*/
+    min-width: 180px;
+    height: 280px;
+    float: left;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+.restore-list .item svg {
+    max-width: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.restore-list .item .img-wrap {
+    overflow: hidden;
+    min-width: 180px;
+    width: 100%;
+    height: 180px;
+    border: 1px solid #ddd;
+    display: block;
+    vertical-align: middle;
+    background-color: #F5F4F5;
+    position: relative;
+}
+.restore-list .item .img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.restore-list .item .mask {
+  position: absolute;
+  width: 92%;
+  height: 180px;
+  left: 4%;
+  top: 15px;
+  background: rgba(0,0,0,.5);
+
+  -webkit-transition: left .6s ease;
+  -o-transition: left .6s ease;
+  transition: left .6s ease;
+  opacity: 0;
+}
+
+.restore-list .item .ops {
+  position: absolute;
+  left: 0;
+  top: 80px;
+  height: 40px;
+  width: 100%;
+  display: none;
+  text-align: center;
+}
+
+.restore-list .item .ops i {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  margin: 0 20px;
+  color: #fff;
+  display: inline-block;
+}
+
+.restore-list .item .ops .delete {
+    width: 40px;
+    height: 40px;
+    background: url(../images/white-trashcan.png) no-repeat center;
+    background-size: 100%;
+    z-index: 3;
+}
+
+.restore-list .item  .ops .edit {
+    font-size: 38px;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.restore-list .item .description {
+    text-align: center;
+}
+.restore-list .item .description h3 {
+    line-height: 24px;
+    height: 25px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.restore-list .item .description .time {
+    font-size: 14px;
+    color: #999;
+}
+
+
+
+/* block */
+.blocklyDragging>.blocklyPathLight,
+.blocklyDragging>.blocklyPath {
+    
+}
+
+
+.blocklySelected>.blocklyPath {
+    stroke: #aee238!important;
+    stroke-width: 3px;
+}
+
+
+.dialog {
+  min-width: 550px;
+  max-height: 320px;
+  border: 4px solid #4e4e4e;
+  position: absolute;
+  left: 50%;
+  margin-left: -225px;
+  top: 50%;
+  margin-top: -200px;
+  background: #fff;
+
+  border-radius: 25px;
+  overflow: hidden;
+  padding: 30px;
+  font-size: 2em;
+  display: none;
+  z-index: 100;
+}
+.dialog .head {
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+.dialog .head .dialog-close-btn {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+
+.dialog .head i {
+  color: #b5b5b5;
+}
+.dialog .head .title {
+  color: #808080;
+}
+
+.dialog .body {
+  /*padding: 30px 0;*/
+  /*height: 120px;*/
+  /*padding-bottom: 0;*/
+}
+.dialog input {
+  height: 60px;
+  width: 100%;
+  border: 3px solid #dadadc;
+  border-radius: 10px;
+  padding: 0 15px;
+  font-size: 22px;
+  outline: none;
+}
+
+.dialog .footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.dialog .footer button {
+    border: 0;
+    border-bottom: 5px solid #ddd;
+    border-style: solid;
+    color: #fff;
+    font-size: 28px;
+    min-width: 140px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    margin: 0 4px;
+    outline: none;
+}
+.dialog .footer button:active {
+    position: relative;
+    top: 6px;
+    border-bottom-width: 1px;
+}
+
+.dialog .footer .cancel {
+    background-color: #b5b5b5;
+    border-bottom-color: #757575;
+}
+.dialog .footer .ok {
+    background-color: #52bff8;
+    border-bottom-color: #2887bd;
+}
+.dialog .footer .save-as-new {
+  display: none;
+  background-color: #66CDFF;
+  border-bottom-color: #2887bd;
+}
+
+/* log */
+#log {
+  display: none;
+  width: 550px;
+  height: 600px;
+  padding: 5px;
+  background-color: #ccc;
+  color: #fff;
+  position: absolute;
+  top: 50px;
+  overflow: auto;
+  left: 220px;
+  opacity: 0.8;
+}
+#log button {
+  height: 40px;
+  padding: 0 10px;
+  background: #ccc;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+#log button.show-log-btn {
+  right: 120px;
+}
+
+
+
+/*-----------------------
+  for small screen
+ ----------------------*/
+@media screen and (min-width: 911px) and (max-width: 991px) {
+
+}
+
+@media screen and (max-width: 911px) {
+  .start .menu .create-project-btn {
+    width: 200px;
+    height: 58px;
+  }
+  .start .menu .my-project-btn {
+    width: 170px;
+    height: 58px;
+    margin-bottom: 20px;
+  }
+  .start .menu {
+    right: 50px;
+    top: 80px;
+  }
+  .start .menu .btn {
+    font-size: 18px;
+  }
+
+  .blocklyTreeLabel {
+    font-size: 1em!important;
+  }
+
+  #menuLeft {
+    width: 130px;
+  }
+
+  /* main stage */
+  #logo, #showLoaderButton {
+    display: none;
+  }
+
+
+  #toolboxScrollingDiv {
+    top: 0;
+  }
+
+  #sideButtons {
+    top: 0;
+  }
+  
+  #sideButtons .btn, #saveBtn {
+    width: 50px!important;
+    height: 50px!important;
+    position: absolute;
+    top: 10px;
+    margin: 0;
+    font-size: 0;
+    border: 1px solid #999!important;
+    border-radius: 8px;
+  }
+
+  #sideButtons div.btn:active {
+    position: absolute;
+    top: 12px;
+    border-bottom-width: 1px;
+  }
+
+  #sideButtons .logo {
+    right: 300px;
+    display: block;
+    background: url(../images/home.svg) no-repeat center;
+    background-size: 40px;
+  }
+
+  #sideButtons .run {
+    right: 240px;
+    display: block;
+    background: url(../images/play.svg) no-repeat center;
+    background-size: 40px;
+  }
+
+  #demoBtn {
+    right: 180px;
+    background: url(../images/demo.svg) no-repeat center;
+    background-size: 40px;
+  }
+
+  #myProjectBtn {
+    right: 120px;
+    background: url(../images/project.svg) no-repeat center;
+    background-size: 40px;
+  }
+
+  #newProjectBtn {
+    right: 60px;
+    background: url(../images/clear.svg) no-repeat center;
+    background-size: 40px!important;
+  }
+
+  #saveBtn {
+    width: 50px;
+    height: 50px;
+    bottom: auto;
+    right: 0px;
+    top: 10px;
+    background: url(../images/save.svg) no-repeat center;
+    background-size: 40px!important;
+  }
+
+  #toolboxDiv .blocklyTreeRow {
+    height: 42px;
+    line-height: 42px;
+  }
+
+  #toolboxDiv div[role="treeitem"] .blocklyTreeRow .blocklyTreeIcon {
+      width: 40px;
+      height: 40px;
+      background-size: 100%;
+      background-position: left center;
+      margin-left: 5px;
+      margin-right: 0px;
+  }
+
+  .blocklyTreeLabel {
+      cursor: default;
+      font-family: sans-serif;
+      font-size: 16px;
+      padding: 0 3px;
+      vertical-align: middle;
+  }
+  
+  /* dialog */
+  .dialog {
+      min-width: 400px;
+      max-height: 250px;
+      border: 4px solid #4e4e4e;
+      position: absolute;
+      left: 50%;
+      margin-left: -200px;
+      top: 50%;
+      margin-top: -120px;
+      padding: 15px;
+      font-size: 1em;
+  }
+  .dialog .head {
+    margin-bottom: 10px;
+  }
+  .dialog .head .dialog-close-btn {
+      font-size: 1.5em;
+  }
+
+  .dialog .footer {
+    margin-top: 20px;
+  }
+  .dialog input {
+    font-size: 1.3em;
+  }
+  .dialog .footer button {
+      font-size: 1em;
+      min-width: 100px;
+  }
+
+  .right-panel {
+    height: 92%;
+    margin-top: 10px;
+    border-radius: 10px!important;
+  }
+
+  .part .header {
+      height: 2.5em;
+      background: #66cdff;
+      color: #fff;
+      line-height: 2.5em;
+      padding: 0 1.2em;
+      padding-top: 0;
+      font-size: 1.2em;
+      border-top-left-radius: .5em;
+      border-top-right-radius: .5em;
+  }
+
+  .close-btn {
+    right: 20px;
+    top: 8px;
+    font-size: 1.6em;
+  }
+
+  .restore-list {
+      overflow: hidden;
+      padding-top: 10px;
+  }
+
+  .restore-list .item {
+      height: 250px;
+  }
+
+  .restore-list .item .img-wrap {
+    min-width: 150px;
+    height: 150px;
+  }
+
+  .restore-list .item .description h3 {
+      line-height: 1.5em;
+      height: 2.7em;
+      font-size: 1em;
+      overflow: hidden;
+      margin-bottom: 0px;
+      margin-top: 4px;
+  }
+
+  .demo-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .demo-item .img-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .demo-item .description h3 {
+    font-size: 1.2em;
+  }
+
+  .demo-item .description p {
+    font-size: 0.8em;
+  }
+
+  .demo-item .load-demo {
+      padding: 7px 13px;
+      font-size: 0.8em;
+  }
+
+  .part-body {
+    height: 300px;
+  }
+
+}

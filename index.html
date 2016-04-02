@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Setting</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+</head>
+<body>
+  <img src="assets/logo.png"/>
+  <img src="assets/mBot.jpg" width="270px"/>
+  
+    <div id="bt-device-panel" style="height:40px">
+      <span style="width:220px;display:block;">Bluetooth</span>
+      <select id="bt-device-selector" style="width:190px;"></select>
+      <button id="connectBT" style="float:right;width:90px;">Connect</button>
+    </div>
+    <div id="hid-device-panel" style="height:40px">
+      <span style="width:220px;display:block;">HID Wireless</span>
+      <select id="hid-device-selector" style="width:190px;"></select>
+      <button id="connectHID" style="float:right;width:90px;">Connect</button>
+    </div>
+    <div id="serial-device-panel">
+      <span style="width:220px;display:block;">Serial Port</span>
+      <select id="serial-device-selector" style="width:190px;"></select>
+      <button id="connectSerial" style="float:right;width:90px;">Connect</button>
+    </div>
+    <div id="scratch-x-panel" style="margin:10px auto 0 auto;width:100%;">
+      <button id="refresh" style="float:left;height:28px;">Refresh</button>
+      
+    </div>
+</body>
+</html>
