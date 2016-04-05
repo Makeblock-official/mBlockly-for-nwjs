@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author Wang Yu
+ * @description blocks for detecting
+ */
+
 goog.require('Blockly.Blocks');
 goog.require('MBlockly.BlockKeeper');
 goog.require('MBlockly.Control');

@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday (hujinhong@makeblock.cc)
+ * @description icon in blocks
+ */
+
 MBlockly.resources = function() {
     var IMAGE_PATH = 'images/blocks-icon/';
     

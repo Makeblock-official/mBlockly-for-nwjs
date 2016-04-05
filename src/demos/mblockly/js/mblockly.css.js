@@ -1,8 +1,7 @@
 /**
- * Copyright 2015 Makeblock
- * Author: callblueday
- * Description: add and modify context menu.
- * 
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description override `src/core/css.js`, add clone function
  */
 
 'use strict';

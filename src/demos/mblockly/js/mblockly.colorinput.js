@@ -1,9 +1,7 @@
 /**
- * Copyright 2015 Makeblock
- * Author: Wangyu
- * Description: provide an slider interface
- * to input numbers between 0-255;
- * 
+ * @copyright 2015 Makeblock
+ * @author Wang Yu
+ * @description provide an slider interface to input numbers between 0-255
  */
 
 'use strict';

@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <title>mBlockly</title>
-  
+
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
@@ -43,6 +43,7 @@
 <script src="js/mblockly.pianoinput.js"></script>
 <script src="js/mblockly.block_svg.js"></script>
 <script src="js/mblockly.block.js"></script>
+<script src="js/mblockly.core.js"></script>
 
 <!-- customized blocks -->
 <script src="js/block_keeper.js"></script>
@@ -71,21 +72,21 @@
             </button>
         </div>
     </div>
-    
+
     <div class="scene stage">
         <!-- menu left -->
         <div id="blockDeletionMask"><div class="trash-icon"></div></div>
         <div id="menuLeft">
             <!-- logo -->
             <a id="logo" class="logo" href="javascript:void(0)"></a>
-        
+
             <!-- boxscroll -->
             <div id="toolboxScrollingDiv">
                 <div id="toolboxDiv">
-                    
+
                 </div>
             </div>
-            
+
             <!-- play -->
             <button type="button" class="loaderPanelButton run" id="showLoaderButton">
               <b class="star"></b>
@@ -104,13 +105,13 @@
 
             </div>
         </div>
-        
+
         <!-- side buttons -->
         <div id="sideButtons">
             <div class="logo btn">
                 Logo
             </div>
-            
+
             <div class="run btn">
                 Run
             </div>
@@ -126,50 +127,7 @@
             <div id="newProjectBtn" class="btn">
                 New Project
             </div>
-
-            <!-- <div class="tool-btn" id="stopBtn">
-                <i class="fa fa-stop"></i>
-            </div> -->
-
-            <!-- <a href="" class="btn">Refresh</a> -->
-
-            <div id="saveBtn" class="tool-btn">
-                <!-- <i class="fa fa-floppy-o"></i> -->
-            </div>
-
-            <!-- <div class="btn" id="query">
-                query
-            </div>
-
-            <div class="btn" id="update">
-                update
-            </div>
-
-            <div class="btn" id="delete">
-                Delete
-            </div> -->
-  
-            <!-- <div class="btn" id="buzzerBtn">
-                <i></i>
-                Test Buzzer
-            </div>
-
-            <div class="btn" id="ledBtn">
-                <i></i>
-                Test LED
-            </div>
-
-            <div class="btn" id="stopBtn">
-                <i></i>
-                Stop
-            </div>
-
-            <a href="" class="btn">Refresh</a>
-            <a class="btn" onclick="clearLog();">clear log</a>
-
-
-            <a class="btn" onclick="MBlockly.Action.doUltrasoinic();">ultrasoinic</a>            
-            <a class="btn" onclick="MBlockly.Action.doLineFollow();">line follow</a> -->
+            <div id="saveBtn" class="tool-btn"></div>
         </div>
 
         <!-- menu right -->
@@ -228,7 +186,7 @@
                   <div class="part-body">
                     <ul class="restore-list">
                         <li class="item">
-                            
+
                         </li>
                     </ul>
                   </div>
@@ -310,7 +268,6 @@
 
         <block type="play_tone"></block>
         <block type="stop_tone"></block>
-        <!-- <block type="play_song"></block> -->
 
         <!-- <block type="text"></block> -->
         <!-- <block type="text_join"></block> -->
@@ -413,7 +370,7 @@
       <block type="math_change"></block>
       <block type="variables_set"></block>
       <block type="variables_get"></block>
-      
+
       <!-- <block type="math_single"></block> -->
       <!-- <block type="math_trig"></block> -->
       <!-- <block type="math_constant"></block> -->

@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description blocks for move modules
+ */
+
 goog.require('goog.color.hexToRgb');
 goog.require('Blockly.Blocks');
 goog.require('MBlockly.BlockKeeper');
@@ -72,8 +78,6 @@ MBlockly.BlockKeeper.makeBlock('move_turn', ['=SPEED', 'DIRECTION'], function(){
     MBlockly.Action.turnSpeed(speed, dir);
 });
 
-
-
 MBlockly.BlockKeeper.makeBlock('move_rotate', ['ROTATE_WAY', '=SPEED', '=TIME'], function(){
     var iconImages = MBlockly.resources().ICONS;
     var icon = new Blockly.FieldImage(iconImages.MOVE_ROTATE_CLOCKWISE, 30, 30, '*');
@@ -91,7 +95,6 @@ MBlockly.BlockKeeper.makeBlock('move_rotate', ['ROTATE_WAY', '=SPEED', '=TIME'],
         'xlink:href', iconImages.MOVE_ROTATE_ANTICLOCKWISE);
         }
     });
-
     this.appendDummyInput()
         .appendField(icon)
         .appendField(rotateWay, 'ROTATE_WAY')
@@ -123,9 +126,8 @@ MBlockly.BlockKeeper.makeBlock('move_rotate', ['ROTATE_WAY', '=SPEED', '=TIME'],
             runtime.resume();
         }
     }})(speed, time, runtime), time*1000);
-    
-});
 
+});
 
 MBlockly.BlockKeeper.makeBlock('move_stop', [], function(){
     var icon = new Blockly.FieldImage(MBlockly.resources().ICONS.MOVE_STOP, 32, 32, '*');

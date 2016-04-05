@@ -41,18 +41,18 @@ button, .btn{
 }
 input {
     -webkit-user-select: auto;
-    -moz-user-select: auto; 
+    -moz-user-select: auto;
 }
 
 /* for ipad */
-@media (max-device-width: 1024px) and (orientation: landscape) { 
+@media (max-device-width: 1024px) and (orientation: landscape) {
 
   input[type="text"], input[type="email"], input[type="search"], input[type="password"] {
           -webkit-appearance: caret;
           -moz-appearance: caret; /* mobile firefox too! */
   }
 }
-    
+
 
 .fa {
     font-family: 'FontAwesome'!important;
@@ -178,7 +178,7 @@ body {
   height: 100px;
   display: block;
   background: url(../images/mblockly_logo.svg) no-repeat center #fff;
-  /* 解决长按弹出菜单的问题 */
+  /* fix: menu long tap; */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -557,7 +557,7 @@ button#showLoaderButton:active {
     margin: 3% auto;
     overflow: hidden;
 
-    -webkit-border-radius: 30px;    
+    -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     border-radius: 30px;
 
@@ -590,7 +590,7 @@ button#showLoaderButton:active {
 }
 .demo-item {
     display: -webkit-flex;
-    display: flex;  
+    display: flex;
     margin-top: 20px;
     width: 100%;
     padding-bottom: 25px;
@@ -624,7 +624,7 @@ button#showLoaderButton:active {
 }
 
 .demo-item .description p {
-    word-wrap: break-word; 
+    word-wrap: break-word;
     word-break: normal;
     font-size: 17px;
 }
@@ -719,6 +719,13 @@ button#showLoaderButton:active {
     max-width: 100%;
     max-height: 100%;
 }
+.restore-list .item .project-edit-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
 .restore-list .item .mask {
   position: absolute;
   width: 92%;
@@ -785,7 +792,7 @@ button#showLoaderButton:active {
 /* block */
 .blocklyDragging>.blocklyPathLight,
 .blocklyDragging>.blocklyPath {
-    
+
 }
 
 
@@ -920,8 +927,27 @@ button#showLoaderButton:active {
 /*-----------------------
   for small screen
  ----------------------*/
-@media screen and (min-width: 911px) and (max-width: 991px) {
-
+@media screen and (min-width: 911px) {
+    #logo {
+      height: 80px;
+      line-height: 80px;
+    }
+    #toolboxScrollingDiv {
+      top: 80px;
+    }
+    #toolboxDiv .blocklyTreeRow {
+      height: 58px;
+      line-height: 58px;
+    }
+    #showLoaderButton {
+      bottom: 20px;
+      height: 86px;
+      line-height: 76px;
+    }
+    button#showLoaderButton:active {
+      bottom: 14px;
+      border-bottom-width: 1px;
+  }
 }
 
 @media screen and (max-width: 911px) {
@@ -963,7 +989,7 @@ button#showLoaderButton:active {
   #sideButtons {
     top: 0;
   }
-  
+
   #sideButtons .btn, #saveBtn {
     width: 50px!important;
     height: 50px!important;
@@ -1044,7 +1070,7 @@ button#showLoaderButton:active {
       padding: 0 3px;
       vertical-align: middle;
   }
-  
+
   /* dialog */
   .dialog {
       min-width: 400px;
@@ -1127,7 +1153,7 @@ button#showLoaderButton:active {
     margin-bottom: 10px;
     padding-bottom: 10px;
   }
-  
+
   .demo-item .img-wrap {
     width: 80px;
     height: 80px;

@@ -1,8 +1,7 @@
 /**
- * Copyright 2015 Makeblock
- * Author: callblueday
- * Description: add duplicate below method.
- * 
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description override `src/core/block.js`
  */
 
 'use strict';

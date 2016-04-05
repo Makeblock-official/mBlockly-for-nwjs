@@ -1,16 +1,21 @@
 {
 	"name": "mBlockly",
 	"version": "1.0.0",
-	"description": "to start a gulp project quickly",
+	"description": "mBlockly for nwjs",
 	"main": "./src/demos/mblockly/index.html",
 	"version": "1.0",
 	"nodejs":true,
 	"node-main":"app.js",
 	"bg-script":"background.js",
 	"window": {
+		"title": "mblockly-for-nwjs",
 		"toolbar": true,
 		"resizable": true,
-		"width": 800,
-		"height": 500
+		"width": 980,
+		"height": 640,
+		"max-width": 980,
+		"max-height": 640,
+		"min-width": 980,
+		"min-height": 640
 	}
 }

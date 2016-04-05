@@ -1,12 +1,10 @@
 /**
- * Copyright 2015 Makeblock
- * Author: callblueday
- * Description: provide data save
- * 
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description use localstorage for saving projects
  */
-'use strict';
 
-// Create a namespace.
+'use strict';
 
 MBlockly.Data = {
     storageKey : 'MBlocklyData',
@@ -31,12 +29,12 @@ MBlockly.Data = {
     ],
     songList: [
         {
-            'name': '我不想静静一个人',
+            'name': 'this is song1',
             'id': 'song1',
             'data': ['C2','D2','E2','F2','G2','A2','B2','C3','D3','E3','F3']
         },
         {
-            'name': '我想一个人静静',
+            'name': 'this is song2',
             'id': 'song2',
             'data': ['G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','D6','E6','F6','G6','A6','B6','C7']
         }
@@ -44,7 +42,11 @@ MBlockly.Data = {
     ]
 };
 
-// add data
+/**
+ * Add project.
+ * @param {number} id   project id.
+ * @param {object} data project data.
+ */
 MBlockly.Data.add = function(id, data) {
     // var type = 'update';
     // var val = encodeURIComponent(JSON.stringify(value));
@@ -59,7 +61,11 @@ MBlockly.Data.add = function(id, data) {
     window.localStorage[this.storageKey] = val;
 };
 
-// add data
+/**
+ * Edit project.
+ * @param {number} id   project id.
+ * @param {object} data new project data.
+ */
 MBlockly.Data.edit = function(id, data) {
     var dataArray = this.storeList;
     for(var i = 0; i < dataArray.length; i++) {
@@ -74,7 +80,6 @@ MBlockly.Data.edit = function(id, data) {
     var val = JSON.stringify(this.storeList);
     window.localStorage[this.storageKey] = val;
 };
-
 
 MBlockly.Data.reName = function(newName, id) {
     var dataArray = this.storeList;
@@ -91,14 +96,10 @@ MBlockly.Data.reName = function(newName, id) {
     window.localStorage[this.storageKey] = val;
 };
 
-
-// fetch all data
+/**
+ * Fetch all project.
+ */
 MBlockly.Data.fetch = function() {
-    // var type = 'query';
-    // var key = this.storageKey;
-    // var args = '';
-    // MBlockly.Control.sendData(type, args);
-
     var dataString = window.localStorage[this.storageKey];
     if(dataString && JSON.parse(dataString).length) {
         this.storeList = JSON.parse(dataString);
@@ -106,18 +107,17 @@ MBlockly.Data.fetch = function() {
     return this.storeList;
 };
 
-// delete one item
+/**
+ * Delete one project.
+ * @param  {number} id project id.
+ */
 MBlockly.Data.delete = function(id) {
-    // var type = 'delete';
-    // var args = '&key=' + id;
-    // MBlockly.Control.sendData(type, args);
-
     var dataArray = this.storeList;
     for(var i = 0; i < dataArray.length; i++) {
         if(dataArray[i].id == id) {
             if(isNaN(i)||i>this.storeList.length){
                 return false;
-            } 
+            }
             this.storeList.splice(i,1);
             break;
         }
@@ -125,7 +125,10 @@ MBlockly.Data.delete = function(id) {
     window.localStorage[this.storageKey] = JSON.stringify(this.storeList);
 };
 
-// get one item
+/**
+ * Get one project data.
+ * @param  {number} id project id.
+ */
 MBlockly.Data.getOne = function(id) {
     var dataArray = this.storeList;
     for(var i = 0; i < dataArray.length; i++) {
@@ -135,17 +138,16 @@ MBlockly.Data.getOne = function(id) {
     }
 };
 
-// clear all data
+/**
+ * Clear all storage data.
+ * @return {[type]} [description]
+ */
 MBlockly.Data.clear = function() {
     var type = 'clear';
     var key = this.storageKey;
     var args = '&key=' + key;
     MBlockly.Control.sendData(type, args);
 };
-
-
-
-
 
 MBlockly.Data.fetchData_callback = function(state, dataString) {
     MBlockly.Action.out('query');
@@ -165,7 +167,6 @@ MBlockly.Data.fetchData_callback = function(state, dataString) {
     MBlockly.App.renderProject();
 };
 
-
 MBlockly.Data.deleteData_callback = function(state, dataString) {
     MBlockly.Action.out('delete');
     if(state == 1) {
@@ -175,7 +176,7 @@ MBlockly.Data.deleteData_callback = function(state, dataString) {
             if(dataArray[i][id]) {
                 if(isNaN(i)||i>this.storeList.length){
                     return false;
-                } 
+                }
                 this.storeList.splice(i,1);
             }
         }

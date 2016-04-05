@@ -4,3 +4,7 @@
 2.download nwjs from http://nwjs.io/ and copy nwjs runtime to the project folder 
 
 3.run nwjs
+
+# Resources
+mbot protocol direction for developers: http://learn.makeblock.com/makeblock-orion-protocol/
+

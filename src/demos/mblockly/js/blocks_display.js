@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description blocks for display
+ */
+
 goog.require('goog.color.hexToRgb');
 goog.require('Blockly.Blocks');
 goog.require('MBlockly.BlockKeeper');
@@ -53,7 +59,6 @@ MBlockly.BlockKeeper.makeBlock('set_led_color', ['LED_POSITION', '=COLOUR1'], fu
     MBlockly.Control.setLed(colors[0], colors[1], colors[2], MBlockly.Control.LedPosition[ledPosition]);
 });
 
-
 MBlockly.BlockKeeper.makeBlock('play_tone', ['TONE'], function(){
     var icon = new Blockly.FieldImage(MBlockly.resources().ICONS.DISPLAY_PLAY_TONE, 30, 30, '*');
     this.setColour(MBlockly.BlockKeeper.HUE.display);
@@ -69,11 +74,9 @@ MBlockly.BlockKeeper.makeBlock('play_tone', ['TONE'], function(){
     this.setOutput(false);
     this.setNextStatement(true);
     this.setPreviousStatement(true);
-
 }, function(tone){
     MBlockly.Control.playTone(tone.data);
 });
-
 
 MBlockly.BlockKeeper.makeBlock('stop_tone', [], function(){
     var icon = new Blockly.FieldImage(MBlockly.resources().ICONS.DISPLAY_STOP_TONE, 30, 30, '*');
@@ -88,7 +91,6 @@ MBlockly.BlockKeeper.makeBlock('stop_tone', [], function(){
 }, function(){
     MBlockly.Control.stopBuzzer();
 });
-
 
 MBlockly.BlockKeeper.makeBlock('play_song', ['TONG_SONG'], function(){
     var songList = MBlockly.Data.songList;

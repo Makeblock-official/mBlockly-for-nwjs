@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description encapsulation for hardware control command
+ */
+
 MBlockly.Action = {
     buffer : [],
     beginCode : [255, 85],
@@ -91,9 +97,7 @@ MBlockly.Action.playSong = function(toneArray) {
             MBlockly.Control.playBuzzer();
         }
     }, 500);
-}
-
-
+};
 
 MBlockly.Action.doUltrasoinic = function() {
     var that = this;
@@ -129,13 +133,10 @@ MBlockly.Action.stopLineFollow = function() {
     clearInterval(this.lineTimer);
 };
 
-//------- 回调处理 ---------//
-// function callback4Js(string) {
-//     var data = decodeURIComponent(string);
-//     // MBlockly.Action.out(data);
-//     MBlockly.Action.decodeData(data);
-// };
-
+/**
+ * Data callback handler.
+ * @param {Buffer} data data sent by hardware such as bluetooth or 2.4G etc.
+ */
 MBlockly.Action.decodeData = function(data) {
     this.out('== Data Start ==');
     var bytes = data.split(" ");
@@ -157,7 +158,6 @@ MBlockly.Action.decodeData = function(data) {
     }
 };
 
-//------- 巡线回调执行 ---------
 MBlockly.Action.lineFollow_callback = function() {
     this.out('line flollow');
 
@@ -165,16 +165,16 @@ MBlockly.Action.lineFollow_callback = function() {
     
         var sum = this.buffer[7] + this.buffer[6];
         if (sum == 0) {
-            this.out("直行");
+            this.out("forward");
             this.flag4Left = 0;
             this.flag4Right = 0;
             this.forward();
         } else if(sum == 64) {
-            this.out("右拐");
+            this.out("turn right");
             this.flag4Right++;
             this.turnRightLittle();
         } else if(sum == 128) {
-            this.out("后退");
+            this.out("backward");
             if (this.flag4Left == this.flag4Right) {
                 this.backForward();
             } else if (this.flag4Left > this.flag4Right) {
@@ -189,16 +189,15 @@ MBlockly.Action.lineFollow_callback = function() {
                 this.turnRightExtreme();
             }
         } else if(sum == (63 + 128)) {
-            this.out("左拐");
+            this.out("turn left");
             this.flag4Left++;
             this.turnLeftLittle();
         } else {
-            this.out("未知");
+            this.out("unknow");
         }
     }
 };
 
-//------- 超声波回调执行 ---------
 MBlockly.Action.ultrasoinic_callback = function() {
     this.out('ultrasoinic start');
 
@@ -208,19 +207,18 @@ MBlockly.Action.ultrasoinic_callback = function() {
         this.out(distance);
         
         if(distance < 1 || distance > 10) {
-            this.out("直行 测距 " + distance);
+            this.out("forward: " + distance);
             MBlockly.Control.setSpeed(-205, 205);
         } 
         else if(distance < 10) {
-            this.out("原地右转 测距 " + distance);
-            MBlockly.Control.setSpeed(-145, -145); //原地右转
+            this.out("turn right: " + distance);
+            MBlockly.Control.setSpeed(-145, -145);
         }
     } else {
         this.out('end');
     }
 };
 
-/* 解析从小车返回的字节数据 */
 MBlockly.Action.getResponseValue = function(b1, b2, b3, b4) {
     var intValue = this.fourBytesToInt(b1,b2,b3,b4);
     var result = parseFloat(this.intBitsToFloat(intValue).toFixed(2));
@@ -232,9 +230,8 @@ MBlockly.Action.fourBytesToInt = function(b1,b2,b3,b4 ) {
     return ( b1 << 24 ) + ( b2 << 16 ) + ( b3 << 8 ) + b4;
 };
 
-
 MBlockly.Action.intBitsToFloat = function(num) {
-    /* s 为符号（sign）；e 为指数（exponent）；m 为有效位数（mantissa）*/
+    /* s(sign), e(exponent), m(mantissa)*/
     s = ( num >> 31 ) == 0 ? 1 : -1,
     e = ( num >> 23 ) & 0xff,
     m = ( e == 0 ) ?

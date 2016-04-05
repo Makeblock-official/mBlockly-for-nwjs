@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description the start blocks
+ */
+
 goog.require('goog.color.hexToRgb');
 goog.require('Blockly.Blocks');
 goog.require('MBlockly.BlockKeeper');
@@ -10,7 +16,6 @@ MBlockly.BlockKeeper.makeBlock('start_whengo', [], function(){
     this.setInputsInline(true);
     this.setNextStatement(true);
 }, function(){ });
-
 
 Blockly.Blocks['start_whenif'] = {
   init: function(){
@@ -33,7 +38,7 @@ Blockly.Blocks['start_whenif'] = {
         .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
     this.setPreviousStatement(false);
   }
-}
+};
 
 Blockly.JavaScript['start_whenif'] = function(block){
     var branch = Blockly.JavaScript.statementToCode(block, 'DO');
@@ -41,4 +46,4 @@ Blockly.JavaScript['start_whenif'] = function(block){
       Blockly.JavaScript.ORDER_NONE) || 'false';
     var code = "if ("+argument+") {\n"+branch+"\n}\n";
     return code;
-}
+};

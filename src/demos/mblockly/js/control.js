@@ -1,3 +1,10 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description hardware modules control command in mbot such as motors, led, tone, ultrasonic sensor,
+ * linefollow sensor.
+ */
+
 MBlockly.Control = {
     buffer : [],
     beginCode : [255, 85],
@@ -27,19 +34,17 @@ MBlockly.Control = {
     },
 
     SETTING : {
-
-        //自定义协议
         protocol: 'com.xeecos.blockly://demo?',
         CODE_COMMON: [0xff, 0x55, 0],
         READ_CHUNK_PREFIX: [255, 85],
         READ_CHUNK_SUFFIX: [13, 10],
         READ_BYTES_INDEX: 2,
 
-        //设备类型
+        //device type
         DEV_VERSION: 0,
-        DEV_ULTRASOINIC: 1,  //超声波
+        DEV_ULTRASOINIC: 1,
         DEV_TEMPERATURE: 2,
-        DEV_LIGHTSENSOR: 31,    // changed from 3 to 31
+        DEV_LIGHTSENSOR: 31,
         DEV_POTENTIALMETER: 4,
         DEV_GYRO: 6,
         DEV_SOUNDSENSOR: 7,
@@ -51,7 +56,7 @@ MBlockly.Control = {
         DEV_JOYSTICK: 13,
         DEV_PIRMOTION: 15,
         DEV_INFRADRED: 16,
-        DEV_LINEFOLLOWER: 17,  // 巡线
+        DEV_LINEFOLLOWER: 17,
         DEV_BUTTON: 18,
         DEV_TOPBUTTON: 31,
         DEV_LIMITSWITCH: 19,
@@ -61,53 +66,21 @@ MBlockly.Control = {
         DEV_PINANGLE: 33,
         TONE: 34,
 
-        SLOT_1: 1, //0
-        SLOT_2: 2, //1
+        SLOT_1: 1,
+        SLOT_2: 2,
 
         READMODULE: 1,
         WRITEMODULE: 2,
 
         VERSION_INDEX: 0xFA,
 
-        //端口：1，2，3，4对应四个大的端口
-        //5，6，7，8需要看下位机的固件代码
-        //M1，M2白色的端口，上面有文字
-        PORT_NULL: 0,
-        PORT_1: 1,
-        PORT_2: 2,
-        PORT_3: 3,
-        PORT_4: 4,
-        PORT_5: 5,
-        PORT_6: 6,
-        PORT_7: 7,
-        PORT_8: 8,
         PORT_M1: 9,
         PORT_M2: 10,
 
-        //说明书上:超声波4，巡线2
-        PORT_ULTRASOINIC:  3,  //超声波port
-        PORT_LINEFOLLOWER: 2,  //巡线port
-        PORT_LIGHTSENSOR: 6,  //光线传感器port
+        PORT_ULTRASOINIC:  3,
+        PORT_LINEFOLLOWER: 2,
+        PORT_LIGHTSENSOR: 6,
         PORT_TOPBUTTON: 7,
-
-        //巡线：需要手机端控制
-        MSG_VALUECHANGED: 0x10,
-
-        tap_duration: 0.4,
-
-        SPEED_START: 100,    //初始速度
-        SPEED_MAX:   255,    //最大速度
-        SPEED_CHANGE_TURN_PER: 30,  //转弯时候，每次速度变化
-        SPEED_CHANGE_PER: 30,  //加速减速时候，每次速度变化
-
-        //小车的工作模式
-        MODE_NONE:      0,
-        MODE_AUTO:      1,
-        MODE_MANUAL:    2,
-        MODE_CRUISE:    3,
-        MODE_GYRO:      4,
-        MODE_SPEED_MAX: 5,
-
 
         //RGB
         RGB_BRIGHTNESS: 20,
@@ -117,14 +90,18 @@ MBlockly.Control = {
     }
 };
 
+// Tone value list.
 MBlockly.Control.ToneHzTable = {
     "C2":65, "D2":73, "E2":82, "F2":87, "G2":98, "A2":110, "B2":123, "C3":131, "D3":147, "E3":165, "F3":175, "G3":196, "A3":220, "B3":247, "C4":262, "D4":294, "E4":330, "F4":349, "G4":392, "A4":440, "B4":494, "C5":523, "D5":587, "E5":658, "F5":698, "G5":784, "A5":880, "B5":988, "C6":1047, "D6":1175, "E6":1319, "F6":1397, "G6":1568, "A6":1760, "B6":1976, "C7":2093, "D7":2349, "E7":2637, "F7":2794, "G7":3136, "A7":3520, "B7":3951, "C8":4186
 };
 
+/**
+ * Send serialport data.
+ * @param  {array} a array of command.
+ */
 MBlockly.Control.sendRequest = function(a) {
     var code = a.join(' ');
     if(this.bluetoothConnected){
-        //document.location = this.SETTING.protocol + 'type=control&request=' + code;
         console.log(a);
         var msg = {};
         msg.action = "command";
@@ -147,12 +124,11 @@ MBlockly.Control.sendBleReconnectRequest = function() {
 
 MBlockly.Control.sendData = function(type, args, opt_callback) {
     //document.location = this.SETTING.protocol + 'type=' + type + args;
-    console.log(type,args);
 };
 
 
 /**
- * build write code
+ * Build write code.
  * @private
  */
 MBlockly.Control.buildModuleWriteShort = function(type, port, slot, value) {
@@ -167,13 +143,11 @@ MBlockly.Control.buildModuleWriteShort = function(type, port, slot, value) {
     a[7] = value&0xff;
     a[8] = (value>>8)&0xff;
     a[9] = this.SETTING.CODE_COMMON[2];
-    // return a;
     this.sendRequest(a);
 };
 
-
 /**
- * build write code
+ * Build write code.
  * @private
  */
 MBlockly.Control.buildModuleRead = function(type, port, slot, index) {
@@ -190,9 +164,8 @@ MBlockly.Control.buildModuleRead = function(type, port, slot, index) {
     this.sendRequest(a);
 };
 
-
 /**
- * build RGB machine code.
+ * Build RGB machine code.
  * @private
  */
 MBlockly.Control.buildModuleWriteRGB = function(type, port, slot, index, r, g, b) {
@@ -212,16 +185,15 @@ MBlockly.Control.buildModuleWriteRGB = function(type, port, slot, index, r, g, b
     this.sendRequest(a);
 };
 
-
 /**
- * build Buzzer machine code
+ * Build Buzzer machine code.
  * @private
  */
 MBlockly.Control.buildModuleWriteBuzzer = function(hz) {
     var a = new Array(10);
     a[0] = this.SETTING.CODE_COMMON[0];
     a[1] = this.SETTING.CODE_COMMON[1];
-    a[2] = 0x5;  //后面的数据长度
+    a[2] = 0x5;
     a[3] = 0;
     a[4] = this.SETTING.WRITEMODULE;
     a[5] = this.SETTING.TONE;
@@ -233,9 +205,8 @@ MBlockly.Control.buildModuleWriteBuzzer = function(hz) {
     this.sendRequest(a);
 };
 
-
 /**
- * build Read code
+ * Build Read code.
  * @private
  */
 MBlockly.Control.buildModuleRead = function(type, port, slot, index) {
@@ -257,17 +228,17 @@ MBlockly.Control.buildModuleRead = function(type, port, slot, index) {
  * Code for reading value from ultrasonic / linefollow
  */
 MBlockly.Control.ValueWrapper = function(){
-}
+};
 
 MBlockly.Control.ValueWrapper.prototype.toString = function(){
     return this.val;
-}
+};
 
 MBlockly.Control.ValueWrapper.prototype.setValue = function(value){
     this.val = value;
-}
+};
 
-MBlockly.Control.PromiseList = {        // 用来储存“读取数据”block对数据的请求。在蓝牙返回数据之后设置真实的值
+MBlockly.Control.PromiseList = {
     requestList: new Array(256),
     index: 1
 };
@@ -277,7 +248,7 @@ MBlockly.Control.PromiseType = {
     LINEFOLLOW: 2,
     LIGHTSENSOR: 3,
     ON_TOP_BUTTON: 4
-}
+};
 
 MBlockly.Control.PromiseList.add = function(type, callback, valueWrapper){
     this.index++;
@@ -286,18 +257,18 @@ MBlockly.Control.PromiseList.add = function(type, callback, valueWrapper){
     }
     this.requestList[this.index] = {type:type, callback: callback, valueWrapper: valueWrapper};
     return this.index;
-}
+};
 
 MBlockly.Control.PromiseList.receiveValue = function(index, value){
     if(this.requestList[index]){
         this.requestList[index].valueWrapper.setValue(value);
         this.requestList[index].callback(value);
     }
-}
+};
 
 MBlockly.Control.PromiseList.getType = function(index){
     return this.requestList[index].type;
-}
+};
 
 MBlockly.Control.getUltrasonicValue = function(callback){
     var valueWrapper = new MBlockly.Control.ValueWrapper();
@@ -305,7 +276,7 @@ MBlockly.Control.getUltrasonicValue = function(callback){
                         .add(MBlockly.Control.PromiseType.ULTRASONIC, callback, valueWrapper);
     MBlockly.Control.ultrasoinic(0, index);
     return valueWrapper;
-}
+};
 
 MBlockly.Control.getLineFollowValue = function(callback){
     var valueWrapper = new MBlockly.Control.ValueWrapper();
@@ -313,7 +284,7 @@ MBlockly.Control.getLineFollowValue = function(callback){
                         .add(MBlockly.Control.PromiseType.LINEFOLLOW, callback, valueWrapper);
     MBlockly.Control.lineFollow(0, index);
     return valueWrapper;
-}
+};
 
 MBlockly.Control.getLightSensorValue = function(callback){
     var valueWrapper = new MBlockly.Control.ValueWrapper();
@@ -321,7 +292,7 @@ MBlockly.Control.getLightSensorValue = function(callback){
                         .add(MBlockly.Control.PromiseType.LIGHTSENSOR, callback, valueWrapper);
     MBlockly.Control.lightSensor(0, index);
     return valueWrapper;
-}
+};
 
 MBlockly.Control.getOnTopButtonValue = function(callback){
     var valueWrapper = new MBlockly.Control.ValueWrapper();
@@ -329,8 +300,7 @@ MBlockly.Control.getOnTopButtonValue = function(callback){
                         .add(MBlockly.Control.PromiseType.ON_TOP_BUTTON, callback, valueWrapper);
     MBlockly.Control.onTopButton(0, index);
     return valueWrapper;
-}
-
+};
 
 MBlockly.Control.LineFollowCode = {
     ON_TRACK: 0,
@@ -339,8 +309,6 @@ MBlockly.Control.LineFollowCode = {
     TURN_LEFT: 191
 };
 
-
-//------- 巡线回调执行 ---------
 MBlockly.Control.lineFollow_callback = function() {
     // console.log('--linefollow callback: '+this.buffer.join(','));
     if(this.buffer[0] == 0xff && this.buffer[1] == 0x55) {
@@ -351,7 +319,6 @@ MBlockly.Control.lineFollow_callback = function() {
     }
 };
 
-//------- 超声波回调执行 ---------
 MBlockly.Control.ultrasoinic_callback = function() {
     console.log('--ultrasonic callback: '+this.buffer.join(','));
 
@@ -364,7 +331,6 @@ MBlockly.Control.ultrasoinic_callback = function() {
     }
 };
 
-//------- 光线传感器回调执行 ---------
 MBlockly.Control.lightSensor_callback = function() {
     console.log('--lightsensor callback: '+this.buffer.join(','));
 
@@ -377,7 +343,6 @@ MBlockly.Control.lightSensor_callback = function() {
     }
 };
 
-//------- 顶端按钮回调执行 ---------
 MBlockly.Control.onTopButton_callback = function() {
     console.log('--ontopbutton callback: '+this.buffer.join(','));
 
@@ -396,7 +361,7 @@ MBlockly.Control.onTopButton_callback = function() {
 };
 
 /**
- * 超声波
+ * Get ultrasonic sensor's value.
  */
 MBlockly.Control.ultrasoinic = function(slot, index) {
     var type = this.SETTING.DEV_ULTRASOINIC;
@@ -404,9 +369,8 @@ MBlockly.Control.ultrasoinic = function(slot, index) {
     this.buildModuleRead(type, port, slot, index);
 };
 
-
 /**
- * line follow
+ * Get linefollow sensor's value.
  */
 MBlockly.Control.lineFollow = function(slot, index) {
     var type = this.SETTING.DEV_LINEFOLLOWER;
@@ -415,7 +379,7 @@ MBlockly.Control.lineFollow = function(slot, index) {
 };
 
 /**
- * 光线传感器
+ * Get light sensor's value.
  */
 MBlockly.Control.lightSensor = function(slot, index) {
     var type = this.SETTING.DEV_LIGHTSENSOR;
@@ -423,15 +387,19 @@ MBlockly.Control.lightSensor = function(slot, index) {
     this.buildModuleRead(type, port, slot, index);
 };
 
+/**
+ * Get onTopButton's value on mbot.
+ */
 MBlockly.Control.onTopButton = function(slot, index){
     var type = this.SETTING.DEV_TOPBUTTON;
     var port = this.SETTING.PORT_TOPBUTTON;
     this.buildModuleRead(type, port, slot, index);
-}
+};
 
 /**
- * set Speed.
- * @private
+ * Set motor speed.
+ * @param {number} leftSpeed left speed value.
+ * @param {number} rightSpeed right speed value.
  */
 MBlockly.Control.setSpeed = function(leftSpeed, rightSpeed) {
     var that = this;
@@ -447,16 +415,21 @@ MBlockly.Control.setSpeed = function(leftSpeed, rightSpeed) {
     }, 50);
 };
 
-
+/**
+ * Mbot led position list.
+ */
 MBlockly.Control.LedPosition = {
     LEFT: 1,
     RIGHT: 2,
     BOTH: 0
-}
+};
 
 /**
- * set Led.
- * @private
+ * Set Led color.
+ * @param {number} red red number.
+ * @param {number} green green number.
+ * @param {number} blue blue number.
+ * @param {number} position position value, 1 means left, 2 means right, 0 means both.
  */
 MBlockly.Control.setLed = function(red, green, blue, position) {
     var that = this;
@@ -472,21 +445,18 @@ MBlockly.Control.setLed = function(red, green, blue, position) {
 
 MBlockly.Control.setLedByPosition = function(red, green, blue, position){
     var type = 8;
-    var port = 7; //RGB端口
-    var slot = 1; //???
-
-    console.log(position)
-
+    var port = 7;
+    var slot = 1;
+    console.log(position);
     red = parseInt(red/this.SETTING.RGB_BRIGHTNESS);
     green = parseInt(green/this.SETTING.RGB_BRIGHTNESS);
     blue = parseInt(blue/this.SETTING.RGB_BRIGHTNESS);
 
     this.buildModuleWriteRGB(type, port, slot, position, red, green, blue);
-}
+};
 
 var i = 0;
 
-//蜂鸣器:发出下一个HZ
 MBlockly.Control.buzzer = function() {
     if(i > this.SETTING.TONE_HZ.length - 1) {
         i = 0;
@@ -500,7 +470,7 @@ MBlockly.Control.playTone = function(toneName){
     if(toneName in this.ToneHzTable){
         this.playBuzzer(this.ToneHzTable[toneName]);
     }
-}
+};
 
 MBlockly.Control.playBuzzer = function(hz){
     var that = this;
@@ -509,25 +479,21 @@ MBlockly.Control.playBuzzer = function(hz){
     setTimeout(function() {
         that.stopBuzzer();
     }, 300);
-}
-
+};
 
 MBlockly.Control.stopBuzzer = function() {
     this.buildModuleWriteBuzzer(0);
 };
 
-
 MBlockly.Control.stopSpeed = function() {
     this.setSpeed(0, 0);
 };
-
 
 MBlockly.Control.stopLed = function() {
     this.setLed(0,0,0);
 };
 
-
-// stop
+// Stop all control command.
 MBlockly.Control.stopAll = function() {
     var that = this;
     this.stopSpeed();
@@ -545,9 +511,7 @@ MBlockly.Control.stopAll = function() {
     }, 100);
 };
 
-// 一般用于"when_receive_light"这样的顶层block
-// 当设备发生事件（比如iPad晃动、按钮被按下）的时候回调相应的回调函数
-MBlockly.Control.deviceEventList = {    // 这里每个条目都是一个事件列表；每个数组里都是回调函数
+MBlockly.Control.deviceEventList = {
     shake: [],
     when_tablet_tilt_forward: [],
     when_tablet_tilt_backward: [],
@@ -558,24 +522,24 @@ MBlockly.Control.deviceEventList = {    // 这里每个条目都是一个事件�
     when_button_on_top_pressed: []
 };
 
-// 如果有像“当前方有障碍”这样的block存在时，
-// watchdog会轮询对应的传感器，询问数值是否超出范围。若超出则调用回调函数。
 MBlockly.Control.DeviceEventWatchdog = {
-    WATCH_INTERVAL: 500,                // 两次轮询之间的间隔
-    OBSTACLE_THRESHOLD: 20,             // 超声波传感器读数有多小才算前方有障碍
-    LIGHTSENSOR_THRESHOLD: 80,          // 有多亮才算受到光照
+    // polling interval
+    WATCH_INTERVAL: 500,
+    OBSTACLE_THRESHOLD: 20,
+    LIGHTSENSOR_THRESHOLD: 80,
     lastLightSensorValue: 128,
     timer: null,
-    taskQueue: []                       // 读取传感器数据的请求先放到队列中，以防通信阻塞
+    // task queue of reading sensor's value
+    taskQueue: []
 };
 
-// 启动watchdog，一般由前端监测到有"when..."这样的block时
+// Watchdog，lisening blocks contain 'when'
 MBlockly.Control.DeviceEventWatchdog.activate = function(){
     if(!this.timer){
         this.timer = setInterval(MBlockly.Control.DeviceEventWatchdog.onTimer,
                                     this.WATCH_INTERVAL);
     }
-}
+};
 
 MBlockly.Control.DeviceEventWatchdog.onTimer = function(){
     if(MBlockly.Control.DeviceEventWatchdog.taskQueue.length == 0){
@@ -584,10 +548,11 @@ MBlockly.Control.DeviceEventWatchdog.onTimer = function(){
     else{
         var front = MBlockly.Control.DeviceEventWatchdog.taskQueue.shift();
         if(MBlockly.Control.bluetoothConnected){
-            front[0](front[1]);     // call the real function eg. getLightSensorValue()
+            // call the real function eg. getLightSensorValue()
+            front[0](front[1]);
         }
     }
-}
+};
 
 MBlockly.Control.DeviceEventWatchdog.onTaskQueueEmpty = function(){
     for(var eventType in MBlockly.Control.deviceEventList){
@@ -635,27 +600,26 @@ MBlockly.Control.DeviceEventWatchdog.onTaskQueueEmpty = function(){
             }
         }
     }
-}
+};
 
 MBlockly.Control.DeviceEventWatchdog.deactivate = function(){
     if(MBlockly.Control.DeviceEventWatchdog.timer){
         clearInterval(MBlockly.Control.DeviceEventWatchdog.timer);
         MBlockly.Control.DeviceEventWatchdog.timer = null;
     }
-}
+};
 
 MBlockly.Control.addDeviceEventListener = function(type, handler){
     MBlockly.Control.deviceEventList[type].push(handler);
     MBlockly.Control.DeviceEventWatchdog.activate();
-}
+};
 
 MBlockly.Control.clearAllDeviceEventListeners = function(){
     MBlockly.Control.DeviceEventWatchdog.deactivate();
     for(var i in MBlockly.Control.deviceEventList){
         MBlockly.Control.deviceEventList[i] = [];
     }
-}
-
+};
 
 function callback4DataStore(type, state, data) {
     console.log(type);
@@ -674,14 +638,13 @@ function callback4DataStore(type, state, data) {
         default:
             break;
     }
-};
+}
 
-
-//------- 回调处理 ---------//
 function callback4Js(string) {
     var data = decodeURIComponent(string);
     MBlockly.Control.decodeData(data);
-};
+}
+
 var mStatus = 0;
 function getMakeblockAppStatus() {
 	chrome.runtime.sendMessage({message: "STATUS"}, function (response) {
@@ -696,8 +659,8 @@ function getMakeblockAppStatus() {
         	MBlockly.Control.bluetoothConnected = false;
 			setTimeout(getMakeblockAppStatus, 1000);
 		}
-		else {// successfully connected
-			if (mStatus !==2) {
+		else { // successfully connected
+			if (mStatus !== 2) {
 				console.log("successfully connected");
 				MBlockly.Control.bluetoothConnected = true;
 				MBlockly.Control.bleLastTimeConnected = true;
@@ -708,7 +671,8 @@ function getMakeblockAppStatus() {
 			setTimeout(getMakeblockAppStatus, 1000);
 		}
 	});
-};
+}
+
 getMakeblockAppStatus();
 function onMessage(request, sender, sendResponse) {
 	if(request.action=="request"){
@@ -719,8 +683,9 @@ function onMessage(request, sender, sendResponse) {
     var resp = {};
     resp.request = request;
     sendResponse(resp);
-};
-// 从iOS端回调，
+}
+
+// called by native
 function deviceNotify(message){
     console.log(message);
     var runListenerList = function(listenerList){
@@ -790,8 +755,6 @@ MBlockly.Control.decodeData = function(bytes) {
     }
 };
 
-
-/* 解析从小车返回的字节数据 */
 MBlockly.Control.getResponseValue = function(b1, b2, b3, b4) {
     var intValue = this.fourBytesToInt(b1,b2,b3,b4);
     var result = parseFloat(this.intBitsToFloat(intValue).toFixed(2));
@@ -803,9 +766,8 @@ MBlockly.Control.fourBytesToInt = function(b1,b2,b3,b4 ) {
     return ( b1 << 24 ) + ( b2 << 16 ) + ( b3 << 8 ) + b4;
 };
 
-
 MBlockly.Control.intBitsToFloat = function(num) {
-    /* s 为符号（sign）；e 为指数（exponent）；m 为有效位数（mantissa）*/
+    /* s(sign), e(exponent), m(mantissa) */
     s = ( num >> 31 ) == 0 ? 1 : -1,
     e = ( num >> 23 ) & 0xff,
     m = ( e == 0 ) ?

@@ -1,8 +1,7 @@
 /**
- * Copyright 2015 Makeblock
- * Author: callblueday
- * Description: define base interactive actions for the stage.
- *
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description define base interactive actions for the stage
  */
 
 'use strict';
@@ -12,9 +11,6 @@ goog.provide('MBlockly.App');
 goog.require('MBlockly.Runtime');
 goog.require('MBlockly.Control');
 
-
-
-// Create a namespace.
 MBlockly.App = {
     colour: ['#66cefe', '#66a0ff', '#7f67fe', '#ffcd65', '#fe9666', '#e88dff', '#ff68b4'],
     scale: 0.7,
@@ -42,12 +38,12 @@ MBlockly.App.EventTimer = {
         this.timer = null;
         this.queue = [];
     }
-}
+};
 
 MBlockly.App.onLoad = function(){
-    // event listener when workspace change
     var self = this;
     MBlockly.App.numTopBlocks = 0;
+    // event listener when workspace change
     workspace.fireChangeEvent = function(){
         //check top blocks
         var topBlocks = workspace.getTopBlocks();
@@ -102,7 +98,7 @@ MBlockly.App.onLoad = function(){
                 }
             }
         }
-    }       // workspace.fireChangeEvent
+    };
 
     workspace.onBlockMouseUp = function(){
         $('#blockDeletionMask').hide();
@@ -118,12 +114,11 @@ MBlockly.App.onLoad = function(){
         $('#blockDeletionMask').show();
         $('#blockDeletionMask').addClass('mouse-over');
     };
-
 };
 
 /**
- * Backup code blocks to localStorage.
- * @private
+ * Save blocks to localStrorage.
+ * @param  {string} name project name.
  */
 MBlockly.App.save = function(name) {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
@@ -160,7 +155,11 @@ MBlockly.App.save = function(name) {
     }
 };
 
-
+/**
+ * Edit project.
+ * @param  {string} name project new name.
+ * @param  {number} id   project id.
+ */
 MBlockly.App.edit = function(name, id) {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     if(name) {
@@ -194,7 +193,9 @@ MBlockly.App.edit = function(name, id) {
     }
 };
 
-
+/**
+ * Show my project panel.
+ */
 MBlockly.App.showRestorePanel = function() {
     this.showStage();
     $('.right-panel').hide();
@@ -203,10 +204,8 @@ MBlockly.App.showRestorePanel = function() {
 
     // fetch data from native
     MBlockly.Data.fetch();
-
     this.renderProject();
 };
-
 
 MBlockly.App.renderProject = function() {
     $('.restore-list').html('');
@@ -223,7 +222,6 @@ MBlockly.App.renderProject = function() {
                 color = 'rgba(' + parseInt(Math.random()*255) +',' + Math.min(parseInt(Math.random()*255), 200) +',' + parseInt(Math.random()*255) +', .7)';
             }
         }
-
         if(!item.time) {
             item.time = '';
         }
@@ -237,6 +235,7 @@ MBlockly.App.renderProject = function() {
             '<svg translate(0,0) style="width:' + svgW + 'px;margin-left:-' + svgW*0.5 + 'px;height:' + svgH + 'px;margin-top:-' + svgH*0.5 + 'px;">' + item.svgCanvas.content + '</svg>' +
         '</div>' +
         '<div class="mask" data-name="' + item.name + '" data-id="' + item.id + '"></div>' +
+        '<i class="project-edit-icon fa fa-edit"></i>' +
         '<div class="ops"><i class="delete"></i><i class="fa fa-pencil edit"></i></div>' +
         '<div class="description">' +
         '<h3>' + item.name + '</h3>' +
@@ -248,7 +247,9 @@ MBlockly.App.renderProject = function() {
     });
 };
 
-
+/**
+ * Check device type to discriminate click and tap events.
+ */
 MBlockly.App.checkDeviceType = function() {
     var eventType;
     if(goog.userAgent.MOBILE) {
@@ -259,19 +260,16 @@ MBlockly.App.checkDeviceType = function() {
     return eventType;
 };
 
-
 /**
  * Clear store data.
- * @privatef
  */
 MBlockly.App.clear = function() {
     Blockly.mainWorkspace.clear();
 };
 
-
 /**
- * Load store project
- * @private
+ * Load certain project.
+ * @param {number} id project id.
  */
 MBlockly.App.loadProject = function(id) {
     this.hideRightMenu();
@@ -283,44 +281,40 @@ MBlockly.App.loadProject = function(id) {
     Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
-
+/**
+ * Delete certain project
+ * @param  {number} id     project id.
+ * @param  {object} target dom element warpper of the project.
+ */
 MBlockly.App.deleteProject = function(id, target) {
     $(target).remove();
     MBlockly.Data.delete(id);
 };
 
-
 /**
- * Load store Demo
- * @private
+ * Load store Demo.
+ * @param {number} demoId demo id.
  */
-MBlockly.App.loadDemo = function(demo_id) {
-
+MBlockly.App.loadDemo = function(demoId) {
         this.hideRightMenu();
         Blockly.mainWorkspace.clear();
-
-        var xml = Blockly.Xml.textToDom(MBlockly.Data.demo[demo_id]);
+        var xml = Blockly.Xml.textToDom(MBlockly.Data.demo[demoId]);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
-
 /**
- * clear mainWorkspace.
- * @private
+ * Clear mainWorkspace.
  */
 MBlockly.App.clearMainWorkspace = function() {
     Blockly.mainWorkspace.clear();
 };
 
-
 /**
  * Hide menuRight.
- * @private
  */
 MBlockly.App.hideRightMenu = function() {
     $('#menuRight').css('right', '-100%');
 };
-
 
 /**
  * Show menuRight.
@@ -330,7 +324,6 @@ MBlockly.App.showRightMenu = function() {
     $('#menuRight').css('right', 0);
 };
 
-
 MBlockly.App.showStart = function() {
     this.clear();
     this.currentProject = null;
@@ -339,13 +332,11 @@ MBlockly.App.showStart = function() {
     MBlockly.Control.sendData('pageSwitch', '&currentPage=start');
 };
 
-
 MBlockly.App.showStage = function() {
     MBlockly.Control.sendData('pageSwitch', '&currentPage=others');
     $('.scene').removeClass('active');
     $('.stage').addClass('active');
 };
-
 
 MBlockly.App.showDemoPanel = function() {
     $('.right-panel').hide();
@@ -357,10 +348,9 @@ MBlockly.App.isWorkspaceEmpty = function() {
     return !(workspace.svgBlockCanvas_.childElementCount > 0);
 };
 
-
 /**
- * Pop star.
- * @private
+ * Star button animation when play the program.
+ * @param {object} event dom event object.
  */
 MBlockly.App.popStar = function(event) {
     var ani =  event.currentTarget.children[0];
@@ -378,9 +368,11 @@ MBlockly.App.popStar = function(event) {
     }, 800);
 };
 
-
+/**
+ * Start the current stage's program.
+ * @param {object} event dom event object.
+ */
 MBlockly.App.runCode = function(event) {
-    // pop star
     var self = this;
     if(!this.activeRuntime){
         MBlockly.Control.bleLastTimeConnected = true;   // popup bluetooth connect dialog
@@ -442,14 +434,12 @@ MBlockly.App.setStopIcon = function() {
     }
 };
 
-
 MBlockly.App.hideEditMask = function() {
     $('.item .mask').css({
         'opacity': '0'
     });
     $('.restore-list').find('.ops').hide();
 };
-
 
 $(function() {
     var eventType = MBlockly.App.checkDeviceType();
@@ -487,7 +477,6 @@ $(function() {
         var id = 'demo' + $(this).attr('data-id');
         app.loadDemo(id);
     });
-
 
     // demoBtn
     $('#demoBtn').on(eventType, function() {
@@ -569,13 +558,23 @@ $(function() {
         e.stopPropagation();
     });
 
-    $('.restore-list').on('longTap', '.item .mask', function(e) {
-        $(this).css({
+    $('.restore-list').on('click', '.project-edit-icon', function(e) {
+        console.log(2);
+        $(this).parent().find(".mask").css({
             'opacity': 1
         });
 
         $(this).parent().find('.ops').show();
+        e.stopPropagation();
     });
+
+    // $('.restore-list').on('longTap', '.item .mask', function(e) {
+    //     $(this).css({
+    //         'opacity': 1
+    //     });
+
+    //     $(this).parent().find('.ops').show();
+    // });
 
     $('.restore-list').on(eventType, '.item .delete', function(e) {
         e.stopPropagation();
@@ -631,7 +630,6 @@ $(function() {
         e.stopPropagation();
     });
 
-
     // buzzerBtn
     $('#buzzerBtn').on(eventType, function() {
        MBlockly.Control.buzzer();
@@ -675,9 +673,7 @@ $(function() {
         a.id = id;
        MBlockly.Data.update(id, a);
     });
-
 });
-
 
 function date2str(x,y) {
     var z = {
@@ -697,12 +693,7 @@ function clearLog() {
     $('#log').html('');
 }
 
-// MBlockly.App.showStage();
-// MBlockly.App.showDemoPanel();
-// MBlockly.App.showRestorePanel();
-
-
-/* 封装dialog */
+/* dialog */
 function Dialog(options) {
     var that = this;
     var eventType = MBlockly.App.checkDeviceType();
@@ -814,7 +805,6 @@ function Dialog(options) {
         $dialog.find('.head .title').html(this.title);
     }
 
-
     // close-btn
     $dialog.find('.dialog-close-btn').on(eventType, function() {
         that.hide();
@@ -829,7 +819,6 @@ function Dialog(options) {
     if(that.beforeShow !== null && that.beforeShow !== undefined) {
         that.beforeShow();
     }
-
 
     // edit
     if(that.onEdit !== null && that.onEdit !== undefined) {

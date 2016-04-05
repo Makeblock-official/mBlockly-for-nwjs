@@ -1,3 +1,9 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author callblueday
+ * @description blocks for ipad events and linefollow sensor
+ */
+
 goog.require('Blockly.Blocks');
 goog.require('MBlockly.BlockKeeper');
 goog.require('MBlockly.Control');
@@ -23,7 +29,6 @@ MBlockly.BlockKeeper.makeBlock('tablet_shaked', [], function(){
     this.setPreviousStatement(false);
 }, function(){
     var time = (new Date()).getTime() / 1000;
-    // 如果当前时间距离上次iPad摇晃的时间小于1秒
     if(time-MBlockly.Control.tabletLastShakeTime < 1){
         return true;
     }
@@ -147,7 +152,6 @@ MBlockly.BlockKeeper.makeBlock('linefollower_reads', ['VALUE'], function(){
     this.setNextStatement(false);
     this.setPreviousStatement(false);
 }, function(checkType){
-    // value.data = BLACK_BLACK
     var runtime = this;
     runtime.pause();
     var val = MBlockly.Control.getLineFollowValue(function(){

@@ -1,26 +1,26 @@
+/**
+ * @copyright 2015 Makeblock
+ * @author Wang Yu
+ * @description BlockKeeper provides an unified interface for adding blocks to Blockly system
+ * @example
+ * 
+ *     MBlockly.BlockKeeper.makeBlock('set_led_color', ['LED_POSITION', '*COLOUR1'], function(){
+ *     // block ui builder
+ *     this.appendDummyInput()
+            .appendField(Blockly.Msg.DISPLAY_LED_SET_LED_ON_BOARD)
+            .appendField(ledPositionList, 'LED_POSITION')
+            .appendField(Blockly.Msg.DISPLAY_LED_TO_COLOR);
+            ......
+ *     }, function(led_position, colour1){
+ *         // code to run when block is activated
+ *     })
+ */
+
 'use strict';
 goog.provide('MBlockly.BlockKeeper');
 
 goog.require('Blockly.Blocks');
 
-/**
- * BlockKeeper provides an unified interface for adding blocks to Blockly system.
- * Example:
- * MBlockly.BlockKeeper.makeBlock('set_led_color', ['LED_POSITION', '*COLOUR1'], function(){
- *     // block ui builder
- *     this.appendDummyInput()
-                .appendField(Blockly.Msg.DISPLAY_LED_SET_LED_ON_BOARD)
-                .appendField(ledPositionList, 'LED_POSITION')
-                .appendField(Blockly.Msg.DISPLAY_LED_TO_COLOR);
-                ......
- * 
- * }, function(led_position, colour1){
- *     // code to run when block is activated
- * 
- * })
- * 
- * @type {[type]}
- */
 MBlockly.BlockKeeper = {
     HUE: {
         start: 200,
