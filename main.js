@@ -16,7 +16,7 @@ function onRefreshHardware(){
       });
     });
   });
-  
+
 }
 function onConnectHID(){
   var msg = {};
@@ -32,7 +32,7 @@ function onConnectSerial(){
   msg.deviceId = document.getElementById('serial-device-selector').options[document.getElementById('serial-device-selector').selectedIndex].id;
   chrome.runtime.sendMessage(msg,function(response){
     console.log("serial:",response);
-    
+
   });
 }
 function onConnectBT(){
@@ -45,6 +45,7 @@ function onConnectBT(){
 }
 function onMessage(request, sender, sendResponse){
   var option,i;
+    console.log(request.action);
     if(request.action=="initHID"){
       if(request.deviceId!==''){
         console.log(request.devices);

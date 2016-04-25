@@ -26,6 +26,13 @@ MBlockly.Control = {
     eventMessenger: {}, // a dummy object for binding events
     isMotorMoving: false,
 
+    boardVersionNumber: {
+        BOARD_VERSION_MCORE: 6,
+        device: 6,  // new version mbot.
+        protocol: 0,
+        version: 0
+    },
+
     LINEFOLLOWER_VALUE: {
         'BLACK_BLACK': 128,
         'BLACK_WHITE': 64,
@@ -169,6 +176,8 @@ MBlockly.Control.buildModuleRead = function(type, port, slot, index) {
  * @private
  */
 MBlockly.Control.buildModuleWriteRGB = function(type, port, slot, index, r, g, b) {
+
+
     var a = new Array(12);
     a[0] = this.SETTING.CODE_COMMON[0];
     a[1] = this.SETTING.CODE_COMMON[1];
@@ -182,6 +191,17 @@ MBlockly.Control.buildModuleWriteRGB = function(type, port, slot, index, r, g, b
     a[9] = g;
     a[10] = b;
     a[11] = this.SETTING.CODE_COMMON[2];
+
+    // for new mbot's firmware
+    if(this.boardVersionNumber.device == 6){
+        a[2] = 9;
+        a[7] = 2;
+        a[8] = index;
+        a[9] = r;
+        a[10] = g;
+        a[11] = b;
+    }
+
     this.sendRequest(a);
 };
 
@@ -202,6 +222,11 @@ MBlockly.Control.buildModuleWriteBuzzer = function(hz) {
 
     a[8] = 0;
     a[9] = this.SETTING.CODE_COMMON[2];
+    if(this.boardVersionNumber.device == 6){
+        a[2] = 7;
+        a[8] = 0xfa;
+        a[9] = 0x00;
+    }
     this.sendRequest(a);
 };
 
@@ -244,6 +269,7 @@ MBlockly.Control.PromiseList = {
 };
 
 MBlockly.Control.PromiseType = {
+    VERSION: 0,
     ULTRASONIC: 1,
     LINEFOLLOW: 2,
     LIGHTSENSOR: 3,
@@ -269,6 +295,14 @@ MBlockly.Control.PromiseList.receiveValue = function(index, value){
 MBlockly.Control.PromiseList.getType = function(index){
     return this.requestList[index].type;
 };
+
+MBlockly.Control.getVersionNumber = function(){
+    var valueWrapper = new MBlockly.Control.ValueWrapper();
+    var index = MBlockly.Control.PromiseList
+                        .add(MBlockly.Control.PromiseType.VERSION, null, valueWrapper);
+
+    this.sendRequest([0xff, 0x55, 0x04, index, 0x01, 0x00, 0x00]);
+}
 
 MBlockly.Control.getUltrasonicValue = function(callback){
     var valueWrapper = new MBlockly.Control.ValueWrapper();
@@ -308,6 +342,16 @@ MBlockly.Control.LineFollowCode = {
     TURN_BACK: 128,
     TURN_LEFT: 191
 };
+
+// Get version info.
+MBlockly.Control.version_callback = function(){
+    console.log("get version number: ", this.buffer);
+    var versionString = this.buffer.slice(5, -2);
+    var splitedVersionString = String.fromCharCode.apply(null, versionString).split('.');   // 从字符串表示的ASCII获得字符串本身
+    this.boardVersionNumber.device = parseInt(splitedVersionString[0], 16); // 第一位是设备编码
+    this.boardVersionNumber.protocol = parseInt(splitedVersionString[1], 16);   //　第二位是协议编码
+    this.boardVersionNumber.version = parseInt(splitedVersionString[2], 16);
+}
 
 MBlockly.Control.lineFollow_callback = function() {
     // console.log('--linefollow callback: '+this.buffer.join(','));
@@ -664,6 +708,8 @@ function getMakeblockAppStatus() {
 				console.log("successfully connected");
 				MBlockly.Control.bluetoothConnected = true;
 				MBlockly.Control.bleLastTimeConnected = true;
+                // get mbot's version.
+                MBlockly.Control.getVersionNumber();
 				chrome.runtime.onMessage.removeListener(onMessage);
 				chrome.runtime.onMessage.addListener(onMessage);
 			}
@@ -700,6 +746,7 @@ function deviceNotify(message){
     else if(message == 'bleconnect'){
         MBlockly.Control.bluetoothConnected = true;
         MBlockly.Control.bleLastTimeConnected = true;
+        MBlockly.Control.getVersionNumber();
     }
     else if(message == 'bledisconnect'){
         MBlockly.Control.bluetoothConnected = false;
@@ -724,9 +771,6 @@ function deviceNotify(message){
 }
 
 MBlockly.Control.decodeData = function(bytes) {
-    //var bytes = data.split(" ");
-    //console.log('== Received: '+data);
-
     for(var i = 0; i < bytes.length; i++) {
         this.buffer.push(bytes[i]);
         var length = this.buffer.length;
@@ -739,6 +783,9 @@ MBlockly.Control.decodeData = function(bytes) {
                 var promiseType = this.PromiseList.getType(dataIndex);
                 if(promiseType == this.PromiseType.LINEFOLLOW) {
                     this.lineFollow_callback();
+                }
+                else if(promiseType == this.PromiseType.VERSION) {
+                    this.version_callback();
                 }
                 else if(promiseType == this.PromiseType.ULTRASONIC) {
                     this.ultrasoinic_callback();
